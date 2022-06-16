@@ -1,6 +1,8 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.13;
 
+import "hardhat/console.sol";
+
 import {ISuperfluid, ISuperToken, ISuperApp, ISuperAgreement, SuperAppDefinitions} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol";
 
 import {CFAv1Library} from "@superfluid-finance/ethereum-contracts/contracts/apps/CFAv1Library.sol";
@@ -17,6 +19,8 @@ contract StreamRebounder is SuperAppBase {
     bytes32 constant public CFA_ID = keccak256("org.superfluid-finance.agreements.ConstantFlowAgreement.v1");
 
     ISuperToken private _acceptedToken; // accepted token
+
+    mapping(address => int96) flowRates;
 
    constructor(
         ISuperfluid host,
@@ -76,6 +80,8 @@ contract StreamRebounder is SuperAppBase {
         // start equal flow rate back
         newCtx = cfaV1Lib.createFlowWithCtx(_ctx, sender, _acceptedToken, flowRate);
 
+        flowRates[sender] = flowRate;
+
         return newCtx;
 
     }
@@ -106,6 +112,8 @@ contract StreamRebounder is SuperAppBase {
             address(this)
         );
 
+        flowRates[sender] = flowRate;
+
         // update to equal flow rate back
         newCtx = cfaV1Lib.updateFlowWithCtx(_ctx, sender, _acceptedToken, flowRate);
 
@@ -120,16 +128,27 @@ contract StreamRebounder is SuperAppBase {
         bytes calldata _ctx
     ) external override onlyHost returns (bytes memory newCtx) {
         // According to the app basic law, we should never revert in a termination callback
-        if (!_isSameToken(_superToken) || !_isCFAv1(_agreementClass))
+        if (!_isSameToken(_superToken) || !_isCFAv1(_agreementClass)) {
             return _ctx;
+        }
 
         newCtx = _ctx;
 
         // Get sender
-        (address sender, ) = abi.decode(_agreementData, (address, address));
+        (address sender, address receiver) = abi.decode(_agreementData, (address, address));
 
-        // delete flow back to sender
-        newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, sender, address(this), _acceptedToken);
+        // If sender hasn't deleted flow to this then it must be replaced
+        // If the sender of the flow being deleted is this, then it's a rogue beneficiary cancellation
+        // In that case, receiver is actually the user, not this
+        if (sender == address(this)) {
+            newCtx = cfaV1Lib.createFlowWithCtx(_ctx, receiver, _acceptedToken, flowRates[receiver]);
+        } 
+
+        // Otherwise, delete flow back to sender
+        else {
+            newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, address(this), sender, _acceptedToken);
+            delete flowRates[sender];
+        } 
 
         return newCtx;
 
