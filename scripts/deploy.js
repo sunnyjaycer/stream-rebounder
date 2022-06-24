@@ -17,7 +17,6 @@ async function main() {
   const Rebounder = await hre.ethers.getContractFactory("StreamRebounder");
   const rebounder = await Rebounder.deploy(
     "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9", // host
-    "0x8aE68021f6170E5a766bE613cEA0d75236ECCa9a"  // accepted token
   );
 
   await rebounder.deployed();

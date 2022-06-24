@@ -18,18 +18,18 @@ contract StreamRebounder is SuperAppBase {
     CFAv1Library.InitData public cfaV1Lib;
     bytes32 constant public CFA_ID = keccak256("org.superfluid-finance.agreements.ConstantFlowAgreement.v1");
 
-    ISuperToken private _acceptedToken; // accepted token
+    // ISuperToken private _acceptedToken; // accepted token
 
     mapping(address => int96) flowRates;
 
    constructor(
-        ISuperfluid host,
-        ISuperToken acceptedToken
+        ISuperfluid host
+        // ISuperToken acceptedToken
     ) {
         assert(address(host) != address(0));
-        assert(address(acceptedToken) != address(0));
+        // assert(address(acceptedToken) != address(0));
 
-        _acceptedToken = acceptedToken;
+        // _acceptedToken = acceptedToken;
 
         cfaV1Lib = CFAv1Library.InitData(
             host,
@@ -61,7 +61,7 @@ contract StreamRebounder is SuperAppBase {
     )
         external
         override
-        onlyExpected(_superToken, _agreementClass)
+        onlyExpected(_agreementClass)
         onlyHost
         returns (bytes memory newCtx)
     {
@@ -72,13 +72,13 @@ contract StreamRebounder is SuperAppBase {
 
         // Get flow rate from sender to this
         (,int96 flowRate,,) = cfaV1Lib.cfa.getFlow(
-            _acceptedToken,
+            _superToken,
             sender,
             address(this)
         );
 
         // start equal flow rate back
-        newCtx = cfaV1Lib.createFlowWithCtx(_ctx, sender, _acceptedToken, flowRate);
+        newCtx = cfaV1Lib.createFlowWithCtx(_ctx, sender, _superToken, flowRate);
 
         flowRates[sender] = flowRate;
 
@@ -96,7 +96,7 @@ contract StreamRebounder is SuperAppBase {
     )
         external
         override
-        onlyExpected(_superToken, _agreementClass)
+        onlyExpected(_agreementClass)
         onlyHost
         returns (bytes memory newCtx)
     {
@@ -107,7 +107,7 @@ contract StreamRebounder is SuperAppBase {
 
         // Get flow rate from sender to this
         (,int96 flowRate,,) = cfaV1Lib.cfa.getFlow(
-            _acceptedToken,
+            _superToken,
             sender,
             address(this)
         );
@@ -115,7 +115,7 @@ contract StreamRebounder is SuperAppBase {
         flowRates[sender] = flowRate;
 
         // update to equal flow rate back
-        newCtx = cfaV1Lib.updateFlowWithCtx(_ctx, sender, _acceptedToken, flowRate);
+        newCtx = cfaV1Lib.updateFlowWithCtx(_ctx, sender, _superToken, flowRate);
 
     }
 
@@ -128,7 +128,8 @@ contract StreamRebounder is SuperAppBase {
         bytes calldata _ctx
     ) external override onlyHost returns (bytes memory newCtx) {
         // According to the app basic law, we should never revert in a termination callback
-        if (!_isSameToken(_superToken) || !_isCFAv1(_agreementClass)) {
+        // if (!_isSameToken(_superToken) || !_isCFAv1(_agreementClass)) {
+        if (!_isCFAv1(_agreementClass)) {
             return _ctx;
         }
 
@@ -141,12 +142,12 @@ contract StreamRebounder is SuperAppBase {
         // If the sender of the flow being deleted is this, then it's a rogue beneficiary cancellation
         // In that case, receiver is actually the user, not this
         if (sender == address(this)) {
-            newCtx = cfaV1Lib.createFlowWithCtx(_ctx, receiver, _acceptedToken, flowRates[receiver]);
+            newCtx = cfaV1Lib.createFlowWithCtx(_ctx, receiver, _superToken, flowRates[receiver]);
         } 
 
         // Otherwise, delete flow back to sender
         else {
-            newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, address(this), sender, _acceptedToken);
+            newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, address(this), sender, _superToken);
             delete flowRates[sender];
         } 
 
@@ -154,9 +155,9 @@ contract StreamRebounder is SuperAppBase {
 
     }
 
-    function _isSameToken(ISuperToken superToken) private view returns (bool) {
-        return address(superToken) == address(_acceptedToken);
-    }
+    // function _isSameToken(ISuperToken superToken) private view returns (bool) {
+    //     return address(superToken) == address(_acceptedToken);
+    // }
 
     function _isCFAv1(address agreementClass) private view returns (bool) {
         return ISuperAgreement(agreementClass).agreementType() == CFA_ID;
@@ -170,8 +171,13 @@ contract StreamRebounder is SuperAppBase {
         _;
     }
 
-    modifier onlyExpected(ISuperToken superToken, address agreementClass) {
-        require(_isSameToken(superToken), "RedirectAll: not accepted token");
+    // modifier onlyExpected(ISuperToken superToken, address agreementClass) {
+    //     // require(_isSameToken(superToken), "RedirectAll: not accepted token");
+    //     require(_isCFAv1(agreementClass), "RedirectAll: only CFAv1 supported");
+    //     _;
+    // }
+
+    modifier onlyExpected(address agreementClass) {
         require(_isCFAv1(agreementClass), "RedirectAll: only CFAv1 supported");
         _;
     }
