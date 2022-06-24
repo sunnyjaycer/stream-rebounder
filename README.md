@@ -1,5 +1,7 @@
 # Advanced Sample Hardhat Project
 
+Try most recent deployed contract on Goerli at: `0x429eFCc0f2fC4eCee0b887E5eFAa6Fd27B706667`
+
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
 
 The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
