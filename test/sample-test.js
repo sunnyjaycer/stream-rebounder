@@ -30,7 +30,7 @@ const errorHandler = (err) => {
 before(async function () {
 
     // get hardhat accounts
-    [admin, alice, bob] = await ethers.getSigners();
+    [admin, alice, bob, sunny] = await ethers.getSigners();
 
 
     //// GETTING SUPERFLUID FRAMEWORK SET UP
@@ -160,7 +160,7 @@ before(async function () {
     })
     await transferOp.exec(alice);
 
-    // Transfer DAIx to Stream Rebounder contract
+    // Transfer USDCx to Stream Rebounder contract
     const transferOp2 = usdcx.transfer({
       receiver: streamrebounder.address,
       amount: "1000000000"
@@ -172,7 +172,7 @@ before(async function () {
 
 describe("Stream Rebounder Tests", async () => {
 
-  it("broad test", async function () {
+  xit("broad test", async function () {
 
     const cfOp = sf.cfaV1.createFlow({
       superToken: daix.address,
@@ -322,5 +322,85 @@ describe("Stream Rebounder Tests", async () => {
     console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
     console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
   });
-0x429eFCc0f2fC4eCee0b887E5eFAa6Fd27B706667
+
+  it("protection tests", async function () {
+
+    // Alice starts a DAI stream
+
+    const aliceDaixFlow1 = sf.cfaV1.createFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await aliceDaixFlow1.exec(alice);
+
+    // Bob starts a USDC stream
+
+    const bobUsdcxFlow1 = sf.cfaV1.createFlow({
+      superToken: usdcx.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await bobUsdcxFlow1.exec(bob);
+
+    // emergency close on Alice, Bob, and Sunny
+
+    const emergencyCloseStreamTx = await streamrebounder.connect(admin).emergencyCloseStream(
+      [alice.address, bob.address, sunny.address],
+      [daix.address, usdcx.address, usdcx.address]
+    );
+    await emergencyCloseStreamTx.wait();
+
+
+    // Verify Alice stream to Rebounder is zero
+    console.log(
+      "Alice Outbound Flow Rate",
+      ( await sf.cfaV1.getFlow({
+        superToken:daix.address,
+        sender:alice.address,
+        receiver:streamrebounder.address,
+        providerOrSigner:alice}) ).flowRate
+
+    )
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:daix.address,
+        sender:alice.address,
+        receiver:streamrebounder.address,
+        providerOrSigner:alice}) ).flowRate == 0,
+      "Alice outbound stream not zero"
+    );
+
+    // Verify Alice stream from Rebounder is zero
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:daix.address,
+        sender:streamrebounder.address,
+        receiver:alice.address,
+        providerOrSigner:alice}) ).flowRate == 0,
+      "Alice inbound stream not zero"
+    );
+
+    // Verify Bob  stream to Rebounder is zero
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:usdcx.address,
+        sender:bob.address,
+        receiver:streamrebounder.address,
+        providerOrSigner:bob}) ).flowRate == 0,
+      "Bob outbound stream not zero"
+    );
+
+    // Verify Bob  stream from Rebounder is zero
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:usdcx.address,
+        sender:streamrebounder.address,
+        receiver:bob.address,
+        providerOrSigner:bob}) ).flowRate == 0,
+      "Bob inbound stream not zero"
+    );
+
+  });
+
 });

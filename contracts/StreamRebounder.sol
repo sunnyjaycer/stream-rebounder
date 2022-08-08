@@ -11,25 +11,23 @@ import {IConstantFlowAgreementV1} from "@superfluid-finance/ethereum-contracts/c
 
 import {SuperAppBase} from "@superfluid-finance/ethereum-contracts/contracts/apps/SuperAppBase.sol";
 
-contract StreamRebounder is SuperAppBase {
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract StreamRebounder is SuperAppBase, Ownable {
 
     using CFAv1Library for CFAv1Library.InitData;
 
     CFAv1Library.InitData public cfaV1Lib;
     bytes32 constant public CFA_ID = keccak256("org.superfluid-finance.agreements.ConstantFlowAgreement.v1");
 
-    // ISuperToken private _acceptedToken; // accepted token
-
     mapping(address => int96) flowRates;
+    bool public locked;
 
    constructor(
         ISuperfluid host
-        // ISuperToken acceptedToken
     ) {
         assert(address(host) != address(0));
-        // assert(address(acceptedToken) != address(0));
 
-        // _acceptedToken = acceptedToken;
 
         cfaV1Lib = CFAv1Library.InitData(
             host,
@@ -47,9 +45,7 @@ contract StreamRebounder is SuperAppBase {
         host.registerApp(configWord);
     }
 
-        /**************************************************************************
-     * SuperApp callbacks
-     *************************************************************************/
+
 
     function afterAgreementCreated(
         ISuperToken _superToken,
@@ -63,6 +59,7 @@ contract StreamRebounder is SuperAppBase {
         override
         onlyExpected(_agreementClass)
         onlyHost
+        notLocked
         returns (bytes memory newCtx)
     {
         newCtx = _ctx;
@@ -128,7 +125,6 @@ contract StreamRebounder is SuperAppBase {
         bytes calldata _ctx
     ) external override onlyHost returns (bytes memory newCtx) {
         // According to the app basic law, we should never revert in a termination callback
-        // if (!_isSameToken(_superToken) || !_isCFAv1(_agreementClass)) {
         if (!_isCFAv1(_agreementClass)) {
             return _ctx;
         }
@@ -155,10 +151,6 @@ contract StreamRebounder is SuperAppBase {
 
     }
 
-    // function _isSameToken(ISuperToken superToken) private view returns (bool) {
-    //     return address(superToken) == address(_acceptedToken);
-    // }
-
     function _isCFAv1(address agreementClass) private view returns (bool) {
         return ISuperAgreement(agreementClass).agreementType() == CFA_ID;
     }
@@ -171,16 +163,49 @@ contract StreamRebounder is SuperAppBase {
         _;
     }
 
-    // modifier onlyExpected(ISuperToken superToken, address agreementClass) {
-    //     // require(_isSameToken(superToken), "RedirectAll: not accepted token");
-    //     require(_isCFAv1(agreementClass), "RedirectAll: only CFAv1 supported");
-    //     _;
-    // }
-
     modifier onlyExpected(address agreementClass) {
         require(_isCFAv1(agreementClass), "RedirectAll: only CFAv1 supported");
         _;
     }
 
+
+    /**************************************************************************
+     * Protection Functions
+     *************************************************************************/
+
+    modifier notLocked() {
+        require(!locked, "Rebounder is locked");
+        _;
+    }
+
+    /// @dev Set the lock status of the Rebounder to true to prevent new inbound streams
+    function setLock(bool lockStatus) external onlyOwner {
+        locked = lockStatus;
+    }
+
+    /// @dev Batch close several inbound streams and corresponding outbound streams
+    function emergencyCloseStream(address[] memory streamers, ISuperToken[] memory supertoken) external onlyOwner { 
+
+        for (uint i=0; i<streamers.length; i++) {
+
+            // Get flow into Rebounder
+            (,int96 inFlow,,) = cfaV1Lib.cfa.getFlow(supertoken[i], streamers[i], address(this));
+            // Delete stream into Rebounder, if needed
+            if(inFlow != 0) {
+                cfaV1Lib.deleteFlow(streamers[i], address(this), supertoken[i]);
+            }
+            
+            // Get flow out from Rebounder
+            (,int96 outFlow,,) = cfaV1Lib.cfa.getFlow(supertoken[i], address(this), streamers[i]);
+            // Delete stream out from Rebounder, if needed
+            if(outFlow != 0) {
+                cfaV1Lib.deleteFlow(address(this), streamers[i], supertoken[i]);
+            }
+            
+            delete flowRates[streamers[i]];
+
+        }
+
+    }
 
 }
