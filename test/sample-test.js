@@ -2,6 +2,7 @@ const { assert, expect } = require("chai");
 
 const { Framework } = require("@superfluid-finance/sdk-core");
 const TestTokenABI =  require("@superfluid-finance/ethereum-contracts/build/contracts/TestToken.json");
+const SuperTokenFactoryABI = require("@superfluid-finance/ethereum-contracts/build/contracts/SuperTokenFactory.json").abi;
 
 const { ethers, web3 } = require("hardhat");
 
@@ -403,4 +404,58 @@ describe("Stream Rebounder Tests", async () => {
 
   });
 
+});
+
+describe("Poison Token Cannot Jail App", async () => {
+  it("Should not jail app", async () => {
+    // unknown issue with host in sdk, so we init an ethers contract with the methods here.
+    const host = await ethers.getContractAt(
+      [
+        "function getSuperTokenFactory() view returns (address)",
+        "function isAppJailed(address) view returns (bool)"
+      ],
+      sf.settings.config.hostAddress
+    );
+
+    try {
+      // Deploy token
+      const SuperPoisonFactory = await ethers.getContractFactory("SuperPoison", alice);
+      const superToken = await SuperPoisonFactory.deploy();
+
+      // Register Super Token With Factory
+      const superTokenFactory = await ethers.getContractAt(
+        SuperTokenFactoryABI,
+        await host.getSuperTokenFactory() // sf.host.contract.getSuperTokenFactory() throws, unknown reason
+      );
+      await superTokenFactory.initializeCustomSuperToken(superToken.address);
+
+      // Initialize
+      await superToken.initialize("Super Poison", "SPxxx");
+
+      // Create stream
+      await sf.cfaV1.createFlow({
+        superToken: superToken.address,
+        receiver: streamrebounder.address,
+        flowRate: "100000",
+        overrides: { gasLimit: 3000000 }
+      }).exec(alice);
+
+      // set up poison ID:
+      await superToken.setPoisonFlowId(streamrebounder.address, alice.address);
+
+      // Delete Stream, jail app
+      await sf.cfaV1.deleteFlow({
+        superToken: superToken.address,
+        sender: alice.address,
+        receiver: streamrebounder.address,
+        overrides: { gasLimit: 3000000 }
+      }).exec(alice);
+    } catch (_) {
+      // If anything reverts, the app is safe.
+    }
+
+    // Assert that the app does not jail
+    const isAppJailed = await host.isAppJailed(streamrebounder.address)
+    assert(!isAppJailed, "APP IS JAILED");
+  });
 });
