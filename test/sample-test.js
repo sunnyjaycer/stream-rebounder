@@ -154,6 +154,11 @@ before(async function () {
         sf.settings.config.hostAddress,
     );
 
+    await streamrebounder.setAllowListBatch(
+        [usdcx.address, daix.address],
+        [true, true]
+    );
+
     // Transfer DAIx to Stream Rebounder contract
     const transferOp = daix.transfer({
       receiver: streamrebounder.address,
@@ -171,100 +176,64 @@ before(async function () {
     console.log("Set Up Complete! - TokenSpreader Contract Address:", streamrebounder.address);
 });
 
-describe("Stream Rebounder Tests", async () => {
+describe("Stream Rebounder Tests", async function () {
 
-  xit("broad test", async function () {
+  it("broad test", async function () {
 
     const cfOp = sf.cfaV1.createFlow({
       superToken: daix.address,
       receiver: streamrebounder.address,
       flowRate: "100000"
     });
-    await cfOp.exec(alice);
 
-    console.log("\nAlice -> App starts (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
+    await cfOp.exec(alice);
 
     const cfOpu = sf.cfaV1.createFlow({
       superToken: usdcx.address,
       receiver: streamrebounder.address,
       flowRate: "100000"
     });
+
     await cfOpu.exec(alice);
-
-    console.log("\nAlice -> App starts (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-
     
-    const dfOp = await sf.cfaV1.deleteFlow({
+    const dfOp = sf.cfaV1.deleteFlow({
       superToken: daix.address,
       sender: alice.address,
       receiver: streamrebounder.address
     });
     await dfOp.exec(alice);
 
-    console.log("\nAlice -> App ends (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-
-    const dfOpu = await sf.cfaV1.deleteFlow({
+    const dfOpu = sf.cfaV1.deleteFlow({
       superToken: usdcx.address,
       sender: alice.address,
       receiver: streamrebounder.address
     });
+
     await dfOpu.exec(alice);
 
-    console.log("\nAlice -> App ends (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-   
     await cfOp.exec(alice);
-
-    console.log("\nAlice -> App starts (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     await cfOpu.exec(alice);
 
-    console.log("\nAlice -> App starts (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-
-    const df2Op = await sf.cfaV1.deleteFlow({
+    const df2Op = sf.cfaV1.deleteFlow({
       superToken: daix.address,
       sender: streamrebounder.address,
       receiver: alice.address
     });
+
     await df2Op.exec(alice);
 
-    console.log("\nApp -> Alice ends (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-
-    const df2Ou = await sf.cfaV1.deleteFlow({
+    const df2Ou = sf.cfaV1.deleteFlow({
       superToken: daix.address,
       sender: streamrebounder.address,
       receiver: alice.address
     });
     await df2Ou.exec(alice);
 
-    console.log("\nApp -> Alice ends (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
-
     await dfOp.exec(alice);
-
-    console.log("\nAlice -> App ends (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     await dfOpu.exec(alice);
 
-    console.log("\nAlice -> App ends (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     const cf2Op = sf.cfaV1.createFlow({
       superToken: daix.address,
@@ -273,9 +242,6 @@ describe("Stream Rebounder Tests", async () => {
     });
     await cf2Op.exec(alice);
 
-    console.log("\nAlice -> App starts (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     const cf2Ou = sf.cfaV1.createFlow({
       superToken: usdcx.address,
@@ -284,9 +250,6 @@ describe("Stream Rebounder Tests", async () => {
     });
     await cf2Ou.exec(alice);
 
-    console.log("\nAlice -> App starts (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     const ufOp = sf.cfaV1.updateFlow({
       superToken: daix.address,
@@ -295,9 +258,6 @@ describe("Stream Rebounder Tests", async () => {
     });
     await ufOp.exec(alice);
 
-    console.log("\nAlice -> App updates (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     const ufOpu = sf.cfaV1.updateFlow({
       superToken: usdcx.address,
@@ -306,22 +266,12 @@ describe("Stream Rebounder Tests", async () => {
     });
     await ufOpu.exec(alice);
 
-    console.log("\nAlice -> App updates (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     await dfOp.exec(alice);
-
-    console.log("\nAlice -> App ends (dai)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:daix.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
 
     
     await dfOpu.exec(alice);
 
-    console.log("\nAlice -> App ends (usdc)")
-    console.log("To Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:streamrebounder.address,receiver:alice.address,providerOrSigner:alice}) ).flowRate );
-    console.log("From Alice:", ( await sf.cfaV1.getFlow({superToken:usdcx.address,sender:alice.address,receiver:streamrebounder.address,providerOrSigner:alice}) ).flowRate );
   });
 
   it("protection tests", async function () {
@@ -351,18 +301,18 @@ describe("Stream Rebounder Tests", async () => {
       [daix.address, usdcx.address, usdcx.address]
     );
     await emergencyCloseStreamTx.wait();
+  
+    const host = await ethers.getContractAt(
+      [
+        "function getSuperTokenFactory() view returns (address)",
+        "function isAppJailed(address) view returns (bool)"
+      ],
+      sf.settings.config.hostAddress
+    );
 
+    assert(!await host.isAppJailed(streamrebounder.address), "app was jailed");
 
     // Verify Alice stream to Rebounder is zero
-    console.log(
-      "Alice Outbound Flow Rate",
-      ( await sf.cfaV1.getFlow({
-        superToken:daix.address,
-        sender:alice.address,
-        receiver:streamrebounder.address,
-        providerOrSigner:alice}) ).flowRate
-
-    )
     assert(
       ( await sf.cfaV1.getFlow({
         superToken:daix.address,
@@ -404,19 +354,75 @@ describe("Stream Rebounder Tests", async () => {
 
   });
 
-});
+  it("allow list tests", async function () {
 
-describe("Poison Token Cannot Jail App", async () => {
-  it("Should not jail app", async () => {
-    // unknown issue with host in sdk, so we init an ethers contract with the methods here.
-    const host = await ethers.getContractAt(
-      [
-        "function getSuperTokenFactory() view returns (address)",
-        "function isAppJailed(address) view returns (bool)"
-      ],
-      sf.settings.config.hostAddress
+    await deployTestToken(errorHandler, [":", "WETH"], {
+      web3,
+      from: admin.address,
+    });
+
+    // deploy a fake erc20 wrapper super token around the DAI token
+    await deploySuperToken(errorHandler, [":", "WETH"], {
+      web3,
+      from: admin.address,
+    });
+
+    // deploy a fake erc20 wrapper super token around the DAI token
+    const wethx = await sf.loadSuperToken("WETHx");
+
+    const weth = new ethers.Contract(
+        wethx.underlyingToken.address,
+        TestTokenABI.abi,
+        alice
     );
 
+    const mintAmount = ethers.utils.parseEther("1000");
+    const initialFlowRate = "100000";
+
+    await weth.mint(alice.address, mintAmount);
+
+    await weth.approve(wethx.address, ethers.constants.MaxUint256);
+    const upgradeOp = wethx.upgrade({ amount: mintAmount });
+
+    await upgradeOp.exec(alice);
+
+    const createFlowOp = sf.cfaV1.createFlow({
+      superToken: wethx.address,
+      receiver: streamrebounder.address,
+      flowRate: initialFlowRate,
+      overrides: { gasLimit: 3000000 } // this is expected to fail.
+    });
+
+    try {
+      await createFlowOp.exec(alice);
+      // if we haven't thrown by now, fail the test.
+      throw null;
+    } catch (error) {
+      assert(error != null, "expected error");
+    }
+
+    await streamrebounder.setAllowListBatch([wethx.address], [true]);
+
+    await createFlowOp.exec(alice);
+
+    const { flowRate } = await sf.cfaV1.getFlow({
+      superToken: wethx.address,
+      sender: alice.address,
+      receiver: streamrebounder.address,
+      providerOrSigner: alice
+    });
+
+    assert(flowRate.toString() == initialFlowRate, "flow was not created");
+    assert(
+      initialFlowRate == (await streamrebounder.flowRates(alice.address)).toString(),
+      "flow was not recorded"
+    );
+  });
+
+});
+
+describe("Poison Token Cannot Jail App", async function () {
+  it("Should not jail app", async function () {
     try {
       // Deploy token
       const SuperPoisonFactory = await ethers.getContractFactory("SuperPoison", alice);
@@ -453,6 +459,15 @@ describe("Poison Token Cannot Jail App", async () => {
     } catch (_) {
       // If anything reverts, the app is safe.
     }
+
+    // unknown issue with host in sdk, so we init an ethers contract with the methods here.
+    const host = await ethers.getContractAt(
+      [
+        "function getSuperTokenFactory() view returns (address)",
+        "function isAppJailed(address) view returns (bool)"
+      ],
+      sf.settings.config.hostAddress
+    );
 
     // Assert that the app does not jail
     const isAppJailed = await host.isAppJailed(streamrebounder.address)

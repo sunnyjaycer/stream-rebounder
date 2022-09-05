@@ -13,21 +13,23 @@ import {SuperAppBase} from "@superfluid-finance/ethereum-contracts/contracts/app
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract StreamRebounder is SuperAppBase, Ownable {
+contract StreamRebounder is Ownable {
 
     using CFAv1Library for CFAv1Library.InitData;
 
     CFAv1Library.InitData public cfaV1Lib;
     bytes32 constant public CFA_ID = keccak256("org.superfluid-finance.agreements.ConstantFlowAgreement.v1");
 
-    mapping(address => int96) flowRates;
+    mapping(ISuperToken => bool) public acceptedToken;
+
+    mapping(address => int96) public flowRates;
+
     bool public locked;
 
    constructor(
         ISuperfluid host
     ) {
         assert(address(host) != address(0));
-
 
         cfaV1Lib = CFAv1Library.InitData(
             host,
@@ -45,8 +47,6 @@ contract StreamRebounder is SuperAppBase, Ownable {
         host.registerApp(configWord);
     }
 
-
-
     function afterAgreementCreated(
         ISuperToken _superToken,
         address _agreementClass,
@@ -56,12 +56,13 @@ contract StreamRebounder is SuperAppBase, Ownable {
         bytes calldata _ctx
     )
         external
-        override
         onlyExpected(_agreementClass)
         onlyHost
         notLocked
         returns (bytes memory newCtx)
     {
+        require(acceptedToken[_superToken], "RedirectAll: invalid token");
+
         newCtx = _ctx;
 
         // Get sender
@@ -80,7 +81,6 @@ contract StreamRebounder is SuperAppBase, Ownable {
         flowRates[sender] = flowRate;
 
         return newCtx;
-
     }
 
     function afterAgreementUpdated(
@@ -92,11 +92,12 @@ contract StreamRebounder is SuperAppBase, Ownable {
         bytes calldata _ctx
     )
         external
-        override
         onlyExpected(_agreementClass)
         onlyHost
         returns (bytes memory newCtx)
     {
+        require(acceptedToken[_superToken], "RedirectAll: invalid token");
+
         newCtx = _ctx;
 
         // Get sender
@@ -109,11 +110,10 @@ contract StreamRebounder is SuperAppBase, Ownable {
             address(this)
         );
 
-        flowRates[sender] = flowRate;
-
         // update to equal flow rate back
         newCtx = cfaV1Lib.updateFlowWithCtx(_ctx, sender, _superToken, flowRate);
 
+        flowRates[sender] = flowRate;
     }
 
     function afterAgreementTerminated(
@@ -123,9 +123,9 @@ contract StreamRebounder is SuperAppBase, Ownable {
         bytes calldata _agreementData, // _agreementData
         bytes calldata, // _cbdata,
         bytes calldata _ctx
-    ) external override onlyHost returns (bytes memory newCtx) {
+    ) external onlyHost returns (bytes memory newCtx) {
         // According to the app basic law, we should never revert in a termination callback
-        if (!_isCFAv1(_agreementClass)) {
+        if (!_isCFAv1(_agreementClass) || !acceptedToken[_superToken]) {
             return _ctx;
         }
 
@@ -148,23 +148,22 @@ contract StreamRebounder is SuperAppBase, Ownable {
         } 
 
         return newCtx;
-
     }
 
     function _isCFAv1(address agreementClass) private view returns (bool) {
-        return ISuperAgreement(agreementClass).agreementType() == CFA_ID;
+        return agreementClass == address(cfaV1Lib.cfa);
     }
 
     modifier onlyHost() {
         require(
             msg.sender == address(cfaV1Lib.host),
-            "RedirectAll: support only one host"
+            "RedirectAll: disallowed host"
         );
         _;
     }
 
     modifier onlyExpected(address agreementClass) {
-        require(_isCFAv1(agreementClass), "RedirectAll: only CFAv1 supported");
+        require(_isCFAv1(agreementClass), "RedirectAll: disallowed agreement");
         _;
     }
 
@@ -183,10 +182,35 @@ contract StreamRebounder is SuperAppBase, Ownable {
         locked = lockStatus;
     }
 
+    /// @dev Sets token allow list in batch. Generic to allow blocking bad tokens.
+    /// @param tokens ISuperToken(address) array.
+    /// @param allowed Boolean array. True if token at the respective index should be allowed.
+    function setAllowListBatch(
+        ISuperToken[] calldata tokens,
+        bool[] calldata allowed
+    ) external onlyOwner {
+        uint256 i;
+        uint256 length = tokens.length;
+        require(length == allowed.length, "array mismatch");
+        // There is not enough compute in the universe to overflow an array iterator.
+        unchecked {
+            for (i; i < length; ++i) {
+                acceptedToken[tokens[i]] = allowed[i];
+            }
+        }
+    }
+
     /// @dev Batch close several inbound streams and corresponding outbound streams
     function emergencyCloseStream(address[] memory streamers, ISuperToken[] memory supertoken) external onlyOwner { 
 
         for (uint i=0; i<streamers.length; i++) {
+
+            // Get flow out from Rebounder
+            (,int96 outFlow,,) = cfaV1Lib.cfa.getFlow(supertoken[i], address(this), streamers[i]);
+            // Delete stream out from Rebounder, if needed
+            if(outFlow != 0) {
+                cfaV1Lib.deleteFlow(address(this), streamers[i], supertoken[i]);
+            }
 
             // Get flow into Rebounder
             (,int96 inFlow,,) = cfaV1Lib.cfa.getFlow(supertoken[i], streamers[i], address(this));
@@ -194,18 +218,10 @@ contract StreamRebounder is SuperAppBase, Ownable {
             if(inFlow != 0) {
                 cfaV1Lib.deleteFlow(streamers[i], address(this), supertoken[i]);
             }
-            
-            // Get flow out from Rebounder
-            (,int96 outFlow,,) = cfaV1Lib.cfa.getFlow(supertoken[i], address(this), streamers[i]);
-            // Delete stream out from Rebounder, if needed
-            if(outFlow != 0) {
-                cfaV1Lib.deleteFlow(address(this), streamers[i], supertoken[i]);
-            }
-            
+
             delete flowRates[streamers[i]];
 
         }
 
     }
-
 }
