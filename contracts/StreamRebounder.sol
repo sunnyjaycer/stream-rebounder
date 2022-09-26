@@ -40,9 +40,9 @@ contract StreamRebounder is Ownable {
             SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP;
 
         if (bytes(registrationKey).length > 0) {
-            host.registerApp(configWord);
-        } else {
             host.registerAppWithKey(configWord, registrationKey);
+        } else {
+            host.registerApp(configWord);
         }
     }
 
