@@ -24,6 +24,8 @@ let admin;
 let alice;      
 let bob;
 
+let tx; 
+
 const errorHandler = (err) => {
   if (err) throw err;
 }
@@ -152,6 +154,7 @@ before(async function () {
 
     streamrebounder = await streamRebounderFactory.deploy(
         sf.settings.config.hostAddress,
+        ""
     );
 
     await streamrebounder.setAllowListBatch(
@@ -173,13 +176,14 @@ before(async function () {
     })
     await transferOp2.exec(alice);
 
-    console.log("Set Up Complete! - TokenSpreader Contract Address:", streamrebounder.address);
+    console.log("Set Up Complete! - StreamRebounder Contract Address:", streamrebounder.address);
 });
 
 describe("Stream Rebounder Tests", async function () {
 
   it("broad test", async function () {
 
+    // Alice starts DAI stream 
     const cfOp = sf.cfaV1.createFlow({
       superToken: daix.address,
       receiver: streamrebounder.address,
@@ -188,6 +192,7 @@ describe("Stream Rebounder Tests", async function () {
 
     await cfOp.exec(alice);
 
+    // Alice starts USDC stream 
     const cfOpu = sf.cfaV1.createFlow({
       superToken: usdcx.address,
       receiver: streamrebounder.address,
@@ -196,6 +201,7 @@ describe("Stream Rebounder Tests", async function () {
 
     await cfOpu.exec(alice);
     
+    // Alice deletes DAI stream  
     const dfOp = sf.cfaV1.deleteFlow({
       superToken: daix.address,
       sender: alice.address,
@@ -203,26 +209,21 @@ describe("Stream Rebounder Tests", async function () {
     });
     await dfOp.exec(alice);
 
+    // Alice deletes USDC stream 
     const dfOpu = sf.cfaV1.deleteFlow({
       superToken: usdcx.address,
       sender: alice.address,
       receiver: streamrebounder.address
     });
-
     await dfOpu.exec(alice);
 
+    // Alice creates DAI stream
     await cfOp.exec(alice);
 
+    // Alice starts USDC stream
     await cfOpu.exec(alice);
 
-    const df2Op = sf.cfaV1.deleteFlow({
-      superToken: daix.address,
-      sender: streamrebounder.address,
-      receiver: alice.address
-    });
-
-    await df2Op.exec(alice);
-
+    // Alice deletes incoming DAI stream (her outgoing DAI stream gets deleted by SR)
     const df2Ou = sf.cfaV1.deleteFlow({
       superToken: daix.address,
       sender: streamrebounder.address,
@@ -230,11 +231,29 @@ describe("Stream Rebounder Tests", async function () {
     });
     await df2Ou.exec(alice);
 
-    await dfOp.exec(alice);
+    // Verify Alice stream to Rebounder is zero (cancelled by Rebounder)
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:daix.address,
+        sender:alice.address,
+        receiver:streamrebounder.address,
+        providerOrSigner:alice}) ).flowRate == 0,
+      "Alice outbound stream not zero"
+    );
 
+    // Alice deletes outgoing DAI stream (would revert as it doesn't exist)
+    try {
+      await dfOp.exec(alice);
+    } catch {
+      console.log("expected reversion - flow doesn't exist")
+    }
+    
+    // await expect(await dfOp.exec(alice)).to.be.reverted;
+
+    // Alice deletes outgoing USDC streams
     await dfOpu.exec(alice);
 
-
+    // Alice creates DAI flow
     const cf2Op = sf.cfaV1.createFlow({
       superToken: daix.address,
       receiver: streamrebounder.address,
@@ -242,7 +261,7 @@ describe("Stream Rebounder Tests", async function () {
     });
     await cf2Op.exec(alice);
 
-
+    // Alice creates USDC flow
     const cf2Ou = sf.cfaV1.createFlow({
       superToken: usdcx.address,
       receiver: streamrebounder.address,
@@ -250,7 +269,7 @@ describe("Stream Rebounder Tests", async function () {
     });
     await cf2Ou.exec(alice);
 
-
+    // Alice increases DAI flow
     const ufOp = sf.cfaV1.updateFlow({
       superToken: daix.address,
       receiver: streamrebounder.address,
@@ -258,7 +277,7 @@ describe("Stream Rebounder Tests", async function () {
     });
     await ufOp.exec(alice);
 
-
+    // Alice increases USDC flow
     const ufOpu = sf.cfaV1.updateFlow({
       superToken: usdcx.address,
       receiver: streamrebounder.address,
@@ -266,10 +285,10 @@ describe("Stream Rebounder Tests", async function () {
     });
     await ufOpu.exec(alice);
 
-
+    // Alice deletes DAI flow
     await dfOp.exec(alice);
 
-    
+    // Alice deletes USDC flow
     await dfOpu.exec(alice);
 
   });
@@ -413,10 +432,12 @@ describe("Stream Rebounder Tests", async function () {
     });
 
     assert(flowRate.toString() == initialFlowRate, "flow was not created");
-    assert(
-      initialFlowRate == (await streamrebounder.flowRates(alice.address)).toString(),
-      "flow was not recorded"
-    );
+
+    // Got rid of recordings
+    // assert(
+    //   initialFlowRate == (await streamrebounder.flowRates(alice.address)).toString(),
+    //   "flow was not recorded"
+    // );
   });
 
 });

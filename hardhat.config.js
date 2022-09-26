@@ -28,8 +28,33 @@ module.exports = {
   networks: {
     goerli: {
       url: process.env.GOERLI_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      // accounts:
+      //   process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        accounts: {
+          mnemonic: process.env.MNEMONIC || "",
+          initialIndex: 0,
+          count: 100
+        }
+    },
+    polygon: {
+      url: process.env.POLYGON_URL || "",
+      // accounts:
+      //   process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        accounts: {
+          mnemonic: process.env.MNEMONIC || "",
+          initialIndex: 0,
+          count: 100
+        }
+    },
+    optimism: {
+      url: process.env.OPTIMISM_URL || "",
+      // accounts:
+      //   process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        accounts: {
+          mnemonic: process.env.MNEMONIC || "",
+          initialIndex: 0,
+          count: 100
+        }
     },
   },
   mocha: {
