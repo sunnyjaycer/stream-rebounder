@@ -7,9 +7,14 @@ import {CFAv1Library} from "@superfluid-finance/ethereum-contracts/contracts/app
 
 import {IConstantFlowAgreementV1} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/agreements/IConstantFlowAgreementV1.sol";
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract StreamRebounder is Ownable {
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+/// Transfer attempted that was not a burn or mint
+error INVALIDTRANSFER();
+
+contract StreamRebounder is Ownable, ERC721 {
 
     using CFAv1Library for CFAv1Library.InitData;
 
@@ -22,9 +27,35 @@ contract StreamRebounder is Ownable {
 
     bool public locked;
 
-   constructor(
+    /// @notice Properties of Moonstone NFT
+    /// @dev The quality property is read based off time streamed so far
+    struct Properties {
+        // if streaming has occured for 3 days, reveal() can set this to true
+        bool revealed;
+        // set randomly upon reveal()
+        uint256 rarity;
+        // set randomly upon reveal()
+        uint256 color;
+        // tracking time stream was created to understand time streamed so far
+        uint256 streamCreated;
+    }
+
+    /// @notice Mapping Token IDs to NFT Properties
+    mapping(uint256 => Properties) tokenIdToProperties;
+
+    /// @notice An address may have multiple old revealed moonstone NFTs. 
+    ///         We only want to deal with the NFT that's and evolving due to streams
+    mapping(address => uint256) userToActiveMoonstone; 
+
+    /// @notice The current Token ID, incremented with each mint
+    uint256 public tokenIds;
+
+    constructor(
         ISuperfluid host,
         string memory registrationKey
+    ) ERC721(
+      "MOONSTONE",
+      "Mysterious Moonstone"  
     ) {
 
         cfaV1Lib = CFAv1Library.InitData(
@@ -40,10 +71,40 @@ contract StreamRebounder is Ownable {
             SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP;
 
         if (bytes(registrationKey).length > 0) {
-            host.registerAppWithKey(configWord, registrationKey);
-        } else {
             host.registerApp(configWord);
+        } else {
+            host.registerAppWithKey(configWord, registrationKey);
         }
+    }
+
+    //------------------------------------
+    // ERC721 Function Features
+    //------------------------------------
+
+    /// @notice Override _beforeTokenTransfer to prevent transfers beyond mint or burn
+    /// @dev only allow for transfer if 3 days of streaming have elapsed
+    function _beforeTokenTransfer(address from,address to,uint256) internal pure override {
+        
+        // if it's not a mint or a burn
+        if( from != address(0) && to != address(0) ) {
+            // revert
+            revert INVALIDTRANSFER();
+        }
+
+    }
+
+    /// @notice Allows for internal minting of ASTRO upon agreement creation
+    /// @dev Randomly selects rarity and color
+    function mint(address to) internal {
+
+        // Increment token IDs
+        tokenIds++;
+
+        // Set the userToActiveMoonstone
+        
+
+        // mint the NFT
+        
     }
 
     function afterAgreementCreated(
@@ -76,6 +137,10 @@ contract StreamRebounder is Ownable {
 
         // start equal flow rate back
         newCtx = cfaV1Lib.createFlowWithCtx(_ctx, sender, _superToken, flowRate);
+
+        // mint NFT to sender
+
+        // set active NFT ID
 
         return newCtx;
     }
@@ -130,17 +195,27 @@ contract StreamRebounder is Ownable {
         // Get sender
         (address sender, address receiver) = abi.decode(_agreementData, (address, address));
 
-        // If sender hasn't deleted flow to this then it must be replaced
-        // If the sender of the flow being deleted is this, then it's a rogue beneficiary cancellation
-        // In that case, receiver is actually the user, not this
-        // We'll just delete the inflow we're receiving from them and not try to be sticky
         if (sender == address(this)) {
+                
+            // If the sender of the flow being deleted is this, then it's a rogue beneficiary cancellation
+            // In that case, receiver is actually the user, not this
+            // We'll just delete the inflow we're receiving from them and not try to be sticky
             newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, receiver, address(this), _superToken);
         } 
 
-        // Otherwise, delete flow back to sender
         else {
+
+            // Otherwise, delete flow back to sender
             newCtx = cfaV1Lib.deleteFlowWithCtx(_ctx, address(this), sender, _superToken);
+
+            // get the sender's time streamed
+            
+            // if time streamed is less than 3 days
+
+                // burn the sender's active NFT
+
+            // set the sender's active NFT ID to zero 
+
         } 
 
         return newCtx;
