@@ -496,11 +496,33 @@ xdescribe("Poison Token Cannot Jail App", async function () {
   });
 });
 
-describe("NFT functionality", async function () {
+describe("Test Randomness", async function () {
+
+  it("_random returns within expected range", async function () {
+
+    const res = await streamrebounder.connect(alice)._random(779);
+
+    console.log(res);
+
+  })
+
+});
+
+xdescribe("NFT functionality", async function () {
   it("NFT received upon starting stream", async function () {
+    
     // Alice starts a stream
+    const aliceDaixFlow1 = sf.cfaV1.createFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await aliceDaixFlow1.exec(alice);
 
     // Assert to have one MOONSTONE
+    expect( await streamrebounder.balanceOf(alice.address) ).to.equal(
+      "1"
+    );
 
     // Alice cancels a stream before 3 days
 
