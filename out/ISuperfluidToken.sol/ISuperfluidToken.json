@@ -1,0 +1,4796 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "data",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "AgreementCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "penaltyAccount",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "rewardAccount",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "rewardAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "AgreementLiquidated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "liquidatorAccount",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "penaltyAccount",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "bondAccount",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "rewardAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "bailoutAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "AgreementLiquidatedBy",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "liquidatorAccount",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "targetAccount",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "rewardAmountReceiver",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "rewardAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "targetAccountBalanceDelta",
+          "type": "int256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "liquidationTypeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "AgreementLiquidatedV2",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "slotId",
+          "type": "uint256"
+        }
+      ],
+      "name": "AgreementStateUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "AgreementTerminated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "data",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "AgreementUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "bailoutAccount",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "bailoutAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Bailout",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "data",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "createAgreement",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "getAccountActiveAgreements",
+      "outputs": [
+        {
+          "internalType": "contract ISuperAgreement[]",
+          "name": "activeAgreements",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "dataLength",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAgreementData",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "data",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "agreementClass",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slotId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "dataLength",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAgreementStateSlot",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "slotData",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getHost",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "host",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "isAccountCritical",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isCritical",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "isAccountCriticalNow",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isCritical",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "isAccountSolvent",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isSolvent",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "isAccountSolventNow",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isSolvent",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "liquidationTypeData",
+          "type": "bytes"
+        },
+        {
+          "internalType": "address",
+          "name": "liquidatorAccount",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "useDefaultRewardAccount",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "targetAccount",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "rewardAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "int256",
+          "name": "targetAccountBalanceDelta",
+          "type": "int256"
+        }
+      ],
+      "name": "makeLiquidationPayoutsV2",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "realtimeBalanceOf",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "availableBalance",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deposit",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "owedDeposit",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "realtimeBalanceOfNow",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "availableBalance",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deposit",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "owedDeposit",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "int256",
+          "name": "delta",
+          "type": "int256"
+        }
+      ],
+      "name": "settleBalance",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "dataLength",
+          "type": "uint256"
+        }
+      ],
+      "name": "terminateAgreement",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "data",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "updateAgreementData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slotId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "slotData",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "updateAgreementStateSlot",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "createAgreement(bytes32,bytes32[])": "12a6a3f8",
+    "getAccountActiveAgreements(address)": "386fa221",
+    "getAgreementData(address,bytes32,uint256)": "6c2d9f2f",
+    "getAgreementStateSlot(address,address,uint256,uint256)": "4b61cc33",
+    "getHost()": "20bc4425",
+    "isAccountCritical(address,uint256)": "d9d078d6",
+    "isAccountCriticalNow(address)": "79359f6f",
+    "isAccountSolvent(address,uint256)": "b84cdd4a",
+    "isAccountSolventNow(address)": "bb0d196e",
+    "makeLiquidationPayoutsV2(bytes32,bytes,address,bool,address,uint256,int256)": "1863e809",
+    "realtimeBalanceOf(address,uint256)": "eb3537cc",
+    "realtimeBalanceOfNow(address)": "2ec8eec7",
+    "settleBalance(address,int256)": "cf97256d",
+    "terminateAgreement(bytes32,uint256)": "27048397",
+    "updateAgreementData(bytes32,bytes32[])": "a1b2bf8b",
+    "updateAgreementStateSlot(address,uint256,bytes32[])": "090c415e"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"data\",\"type\":\"bytes32[]\"}],\"name\":\"AgreementCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"penaltyAccount\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"rewardAccount\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rewardAmount\",\"type\":\"uint256\"}],\"name\":\"AgreementLiquidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"liquidatorAccount\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"penaltyAccount\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bondAccount\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rewardAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"bailoutAmount\",\"type\":\"uint256\"}],\"name\":\"AgreementLiquidatedBy\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"liquidatorAccount\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"targetAccount\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rewardAmountReceiver\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rewardAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"targetAccountBalanceDelta\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"liquidationTypeData\",\"type\":\"bytes\"}],\"name\":\"AgreementLiquidatedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slotId\",\"type\":\"uint256\"}],\"name\":\"AgreementStateUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"AgreementTerminated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"data\",\"type\":\"bytes32[]\"}],\"name\":\"AgreementUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bailoutAccount\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"bailoutAmount\",\"type\":\"uint256\"}],\"name\":\"Bailout\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"data\",\"type\":\"bytes32[]\"}],\"name\":\"createAgreement\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAccountActiveAgreements\",\"outputs\":[{\"internalType\":\"contract ISuperAgreement[]\",\"name\":\"activeAgreements\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"dataLength\",\"type\":\"uint256\"}],\"name\":\"getAgreementData\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"data\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"agreementClass\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slotId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"dataLength\",\"type\":\"uint256\"}],\"name\":\"getAgreementStateSlot\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"slotData\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getHost\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"host\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"isAccountCritical\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isCritical\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAccountCriticalNow\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isCritical\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"isAccountSolvent\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isSolvent\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAccountSolventNow\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isSolvent\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"liquidationTypeData\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"liquidatorAccount\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"useDefaultRewardAccount\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"targetAccount\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"rewardAmount\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"targetAccountBalanceDelta\",\"type\":\"int256\"}],\"name\":\"makeLiquidationPayoutsV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"realtimeBalanceOf\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"availableBalance\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"deposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"owedDeposit\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"realtimeBalanceOfNow\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"availableBalance\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"deposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"owedDeposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"settleBalance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"dataLength\",\"type\":\"uint256\"}],\"name\":\"terminateAgreement\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"data\",\"type\":\"bytes32[]\"}],\"name\":\"updateAgreementData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slotId\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"slotData\",\"type\":\"bytes32[]\"}],\"name\":\"updateAgreementStateSlot\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Superfluid\",\"events\":{\"AgreementCreated(address,bytes32,bytes32[])\":{\"details\":\"Agreement created event\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"data\":\"Agreement data\",\"id\":\"Agreement ID\"}},\"AgreementLiquidated(address,bytes32,address,address,uint256)\":{\"custom:deprecated\":\"Use AgreementLiquidatedV2 instead\",\"details\":\"Agreement liquidation event (DEPRECATED BY AgreementLiquidatedBy)\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"id\":\"Agreement ID\",\"penaltyAccount\":\"Account of the agreement to be penalized\",\"rewardAccount\":\"Account that collect the reward\",\"rewardAmount\":\"Amount of liquidation reward\"}},\"AgreementLiquidatedBy(address,address,bytes32,address,address,uint256,uint256)\":{\"custom:deprecated\":\"Use AgreementLiquidatedV2 instead\",\"custom:note\":\" Reward account rule: - if bailout is equal to 0, then   - the bondAccount will get the rewardAmount,   - the penaltyAccount will pay for the rewardAmount. - if bailout is larger than 0, then   - the liquidatorAccount will get the rewardAmouont,   - the bondAccount will pay for both the rewardAmount and bailoutAmount,   - the penaltyAccount will pay for the rewardAmount while get the bailoutAmount.\",\"details\":\"Agreement liquidation event (DEPRECATED BY AgreementLiquidatedV2)\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"bailoutAmount\":\"Amount of liquidation bailouot\",\"bondAccount\":\"Account that collect the reward or bailout accounts\",\"id\":\"Agreement ID\",\"liquidatorAccount\":\"Account of the agent that performed the liquidation.\",\"penaltyAccount\":\"Account of the agreement to be penalized\",\"rewardAmount\":\"Amount of liquidation reward\"}},\"AgreementLiquidatedV2(address,bytes32,address,address,address,uint256,int256,bytes)\":{\"custom:note\":\" Reward account rule: - if the agreement is liquidated during the PIC period   - the rewardAmountReceiver will get the rewardAmount (remaining deposit), regardless of the liquidatorAccount   - the targetAccount will pay for the rewardAmount - if the agreement is liquidated after the PIC period AND the targetAccount is solvent   - the rewardAmountReceiver will get the rewardAmount (remaining deposit)   - the targetAccount will pay for the rewardAmount - if the targetAccount is insolvent   - the liquidatorAccount will get the rewardAmount (single deposit)   - the default reward account (governance) will pay for both the rewardAmount and bailoutAmount   - the targetAccount will receive the bailoutAmount\",\"details\":\"Agreement liquidation event v2 (including agent account)\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"id\":\"Agreement ID\",\"liquidationTypeData\":\"The encoded liquidation type data including the version (how to decode)\",\"liquidatorAccount\":\"Address of the executor of the liquidation\",\"rewardAmount\":\"The amount the reward recipient account balance should change by\",\"rewardAmountReceiver\":\"Account that collects the reward or bails out insolvent accounts\",\"targetAccount\":\"Account of the stream sender\",\"targetAccountBalanceDelta\":\"The amount the sender account balance should change by\"}},\"AgreementStateUpdated(address,address,uint256)\":{\"details\":\"Agreement account state updated event\",\"params\":{\"account\":\"Account updated\",\"agreementClass\":\"Contract address of the agreement\",\"slotId\":\"slot id of the agreement state\"}},\"AgreementTerminated(address,bytes32)\":{\"details\":\"Agreement terminated event\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"id\":\"Agreement ID\"}},\"AgreementUpdated(address,bytes32,bytes32[])\":{\"details\":\"Agreement updated event\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"data\":\"Agreement data\",\"id\":\"Agreement ID\"}},\"Bailout(address,uint256)\":{\"custom:deprecated\":\"Use AgreementLiquidatedV2 instead\",\"details\":\"System bailout occurred (DEPRECATED BY AgreementLiquidatedBy)\",\"params\":{\"bailoutAccount\":\"Account that bailout the penalty account\",\"bailoutAmount\":\"Amount of account bailout\"}}},\"kind\":\"dev\",\"methods\":{\"createAgreement(bytes32,bytes32[])\":{\"details\":\"Create a new agreement\",\"params\":{\"data\":\"Agreement data\",\"id\":\"Agreement ID\"}},\"getAccountActiveAgreements(address)\":{\"details\":\"An active agreement is one that has state for the account\",\"params\":{\"account\":\"Account to query\"},\"returns\":{\"activeAgreements\":\"List of accounts that have non-zero states for the account\"}},\"getAgreementData(address,bytes32,uint256)\":{\"details\":\"Get data of the agreement\",\"params\":{\"agreementClass\":\"Contract address of the agreement\",\"id\":\"Agreement ID\"},\"returns\":{\"data\":\"Data of the agreement\"}},\"getAgreementStateSlot(address,address,uint256,uint256)\":{\"details\":\"Get data of the slot of the state of an agreement\",\"params\":{\"account\":\"Account to query\",\"agreementClass\":\"Contract address of the agreement\",\"dataLength\":\"length of the state data\",\"slotId\":\"slot id of the state\"}},\"getHost()\":{\"details\":\"Get superfluid host contract address\"},\"isAccountCritical(address,uint256)\":{\"details\":\"A critical account is when availableBalance < 0\",\"params\":{\"account\":\"The account to check\",\"timestamp\":\"The time we'd like to check if the account is critical (should use future)\"},\"returns\":{\"isCritical\":\"Whether the account is critical\"}},\"isAccountCriticalNow(address)\":{\"details\":\"A critical account is when availableBalance < 0\",\"params\":{\"account\":\"The account to check\"},\"returns\":{\"isCritical\":\"Whether the account is critical\"}},\"isAccountSolvent(address,uint256)\":{\"details\":\"An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance\",\"params\":{\"account\":\"The account to check\",\"timestamp\":\"The time we'd like to check if the account is solvent (should use future)\"},\"returns\":{\"isSolvent\":\"True if the account is solvent, false otherwise\"}},\"isAccountSolventNow(address)\":{\"details\":\"An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance\",\"params\":{\"account\":\"The account to check\"},\"returns\":{\"isSolvent\":\"True if the account is solvent, false otherwise\"}},\"makeLiquidationPayoutsV2(bytes32,bytes,address,bool,address,uint256,int256)\":{\"custom:modifiers\":\"  - onlyAgreement\",\"custom:note\":\" - If a bailout is required (bailoutAmount > 0)   - the actual reward (single deposit) goes to the executor,   - while the reward account becomes the bailout account   - total bailout include: bailout amount + reward amount   - the targetAccount will be bailed out - If a bailout is not required   - the targetAccount will pay the rewardAmount   - the liquidator (reward account in PIC period) will receive the rewardAmount\",\"details\":\"Make liquidation payouts (v2)\",\"params\":{\"id\":\"Agreement ID\",\"liquidationTypeData\":\"Data regarding the version of the liquidation schema and the type\",\"liquidatorAccount\":\"Address of the executor of the liquidation\",\"rewardAmount\":\"The amount the rewarded account will receive\",\"targetAccount\":\"Account to be liquidated\",\"targetAccountBalanceDelta\":\"The delta amount the target account balance should change by\",\"useDefaultRewardAccount\":\"Whether or not the default reward account receives the rewardAmount\"}},\"realtimeBalanceOf(address,uint256)\":{\"details\":\"Calculate the real balance of a user, taking in consideration all agreements of the account\",\"params\":{\"account\":\"for the query\",\"timestamp\":\"Time of balance\"},\"returns\":{\"availableBalance\":\"Real-time balance\",\"deposit\":\"Account deposit\",\"owedDeposit\":\"Account owed Deposit\"}},\"realtimeBalanceOfNow(address)\":{\"details\":\"realtimeBalanceOf with timestamp equals to block timestamp\",\"params\":{\"account\":\"for the query\"},\"returns\":{\"availableBalance\":\"Real-time balance\",\"deposit\":\"Account deposit\",\"owedDeposit\":\"Account owed Deposit\"}},\"settleBalance(address,int256)\":{\"custom:modifiers\":\"  - onlyAgreement\",\"details\":\"The agreement needs to make sure that the balance delta is balanced afterwards\",\"params\":{\"account\":\"Account to query.\",\"delta\":\"Amount of balance delta to be settled\"}},\"terminateAgreement(bytes32,uint256)\":{\"details\":\"Close the agreement\",\"params\":{\"id\":\"Agreement ID\"}},\"updateAgreementData(bytes32,bytes32[])\":{\"details\":\"Create a new agreement\",\"params\":{\"data\":\"Agreement data\",\"id\":\"Agreement ID\"}},\"updateAgreementStateSlot(address,uint256,bytes32[])\":{\"custom:note\":\" - To clear the storage out, provide zero-ed array of intended length\",\"details\":\"Update agreement state slot\",\"params\":{\"account\":\"Account to be updated\"}}},\"title\":\"Superfluid token interface\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getAccountActiveAgreements(address)\":{\"notice\":\"Get a list of agreements that is active for the account\"},\"isAccountCritical(address,uint256)\":{\"notice\":\"Check if account is critical\"},\"isAccountCriticalNow(address)\":{\"notice\":\"Check if account is critical now (current host.getNow())\"},\"isAccountSolvent(address,uint256)\":{\"notice\":\"Check if account is solvent\"},\"isAccountSolventNow(address)\":{\"notice\":\"Check if account is solvent now\"},\"realtimeBalanceOfNow(address)\":{\"notice\":\"Calculate the realtime balance given the current host.getNow() value\"},\"settleBalance(address,int256)\":{\"notice\":\"Settle balance from an account by the agreement\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluidToken.sol\":\"ISuperfluidToken\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@decentral.ee/=node_modules/@decentral.ee/\",\":@ensdomains/=node_modules/@ensdomains/\",\":@openzeppelin/=node_modules/@openzeppelin/\",\":@superfluid-finance/=node_modules/@superfluid-finance/\",\":contracts/=artifacts/contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":eth-gas-reporter/=node_modules/eth-gas-reporter/\",\":forge-std/=lib/forge-std/src/\",\":hardhat/=node_modules/hardhat/\"]},\"sources\":{\"node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperAgreement.sol\":{\"keccak256\":\"0xc3a6a907245116bcecc70fe4b207454012e8ce4fa190228fb8bbe39e0b1bc5cf\",\"license\":\"AGPLv3\",\"urls\":[\"bzz-raw://83c116bdae48685d20e5a27c942111e685ec1ef6334e7ff6f6d9af66edbd8025\",\"dweb:/ipfs/QmTnVuNTaRFiDmkAmDk7NFYdfQTW1kqgBZiY2exC6k8jDx\"]},\"node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluidToken.sol\":{\"keccak256\":\"0x3eec5a3bf337cd319c1918fd1b16f350cf5f6850ac71f6859066fbf86e734ff4\",\"license\":\"AGPLv3\",\"urls\":[\"bzz-raw://cda19a2f5ca18e79c1e2300c8efac84c718df76c4fb313f59f84264a4c6b398a\",\"dweb:/ipfs/QmfQiwgDH5Q64w5ufBnDzVaeWv6WCZ6fLTrYu1FSYfBGhq\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.14+commit.80d49f37"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "data",
+              "type": "bytes32[]",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementCreated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "penaltyAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "rewardAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "rewardAmount",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementLiquidated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "liquidatorAccount",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "penaltyAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "bondAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "rewardAmount",
+              "type": "uint256",
+              "indexed": false
+            },
+            {
+              "internalType": "uint256",
+              "name": "bailoutAmount",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementLiquidatedBy",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "liquidatorAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "targetAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "rewardAmountReceiver",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "uint256",
+              "name": "rewardAmount",
+              "type": "uint256",
+              "indexed": false
+            },
+            {
+              "internalType": "int256",
+              "name": "targetAccountBalanceDelta",
+              "type": "int256",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "liquidationTypeData",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementLiquidatedV2",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "slotId",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementStateUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementTerminated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "data",
+              "type": "bytes32[]",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AgreementUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "bailoutAccount",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "bailoutAmount",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "Bailout",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "data",
+              "type": "bytes32[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "createAgreement"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAccountActiveAgreements",
+          "outputs": [
+            {
+              "internalType": "contract ISuperAgreement[]",
+              "name": "activeAgreements",
+              "type": "address[]"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "dataLength",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAgreementData",
+          "outputs": [
+            {
+              "internalType": "bytes32[]",
+              "name": "data",
+              "type": "bytes32[]"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "agreementClass",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "slotId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "dataLength",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAgreementStateSlot",
+          "outputs": [
+            {
+              "internalType": "bytes32[]",
+              "name": "slotData",
+              "type": "bytes32[]"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getHost",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "host",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isAccountCritical",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "isCritical",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isAccountCriticalNow",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "isCritical",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isAccountSolvent",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "isSolvent",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isAccountSolventNow",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "isSolvent",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes",
+              "name": "liquidationTypeData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "liquidatorAccount",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "useDefaultRewardAccount",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "targetAccount",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "rewardAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "targetAccountBalanceDelta",
+              "type": "int256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "makeLiquidationPayoutsV2"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "realtimeBalanceOf",
+          "outputs": [
+            {
+              "internalType": "int256",
+              "name": "availableBalance",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "deposit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "owedDeposit",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "realtimeBalanceOfNow",
+          "outputs": [
+            {
+              "internalType": "int256",
+              "name": "availableBalance",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "deposit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "owedDeposit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "int256",
+              "name": "delta",
+              "type": "int256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "settleBalance"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "dataLength",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "terminateAgreement"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "data",
+              "type": "bytes32[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "updateAgreementData"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "slotId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "slotData",
+              "type": "bytes32[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "updateAgreementStateSlot"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "createAgreement(bytes32,bytes32[])": {
+            "details": "Create a new agreement",
+            "params": {
+              "data": "Agreement data",
+              "id": "Agreement ID"
+            }
+          },
+          "getAccountActiveAgreements(address)": {
+            "details": "An active agreement is one that has state for the account",
+            "params": {
+              "account": "Account to query"
+            },
+            "returns": {
+              "activeAgreements": "List of accounts that have non-zero states for the account"
+            }
+          },
+          "getAgreementData(address,bytes32,uint256)": {
+            "details": "Get data of the agreement",
+            "params": {
+              "agreementClass": "Contract address of the agreement",
+              "id": "Agreement ID"
+            },
+            "returns": {
+              "data": "Data of the agreement"
+            }
+          },
+          "getAgreementStateSlot(address,address,uint256,uint256)": {
+            "details": "Get data of the slot of the state of an agreement",
+            "params": {
+              "account": "Account to query",
+              "agreementClass": "Contract address of the agreement",
+              "dataLength": "length of the state data",
+              "slotId": "slot id of the state"
+            }
+          },
+          "getHost()": {
+            "details": "Get superfluid host contract address"
+          },
+          "isAccountCritical(address,uint256)": {
+            "details": "A critical account is when availableBalance < 0",
+            "params": {
+              "account": "The account to check",
+              "timestamp": "The time we'd like to check if the account is critical (should use future)"
+            },
+            "returns": {
+              "isCritical": "Whether the account is critical"
+            }
+          },
+          "isAccountCriticalNow(address)": {
+            "details": "A critical account is when availableBalance < 0",
+            "params": {
+              "account": "The account to check"
+            },
+            "returns": {
+              "isCritical": "Whether the account is critical"
+            }
+          },
+          "isAccountSolvent(address,uint256)": {
+            "details": "An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance",
+            "params": {
+              "account": "The account to check",
+              "timestamp": "The time we'd like to check if the account is solvent (should use future)"
+            },
+            "returns": {
+              "isSolvent": "True if the account is solvent, false otherwise"
+            }
+          },
+          "isAccountSolventNow(address)": {
+            "details": "An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance",
+            "params": {
+              "account": "The account to check"
+            },
+            "returns": {
+              "isSolvent": "True if the account is solvent, false otherwise"
+            }
+          },
+          "makeLiquidationPayoutsV2(bytes32,bytes,address,bool,address,uint256,int256)": {
+            "custom:modifiers": "  - onlyAgreement",
+            "custom:note": " - If a bailout is required (bailoutAmount > 0)   - the actual reward (single deposit) goes to the executor,   - while the reward account becomes the bailout account   - total bailout include: bailout amount + reward amount   - the targetAccount will be bailed out - If a bailout is not required   - the targetAccount will pay the rewardAmount   - the liquidator (reward account in PIC period) will receive the rewardAmount",
+            "details": "Make liquidation payouts (v2)",
+            "params": {
+              "id": "Agreement ID",
+              "liquidationTypeData": "Data regarding the version of the liquidation schema and the type",
+              "liquidatorAccount": "Address of the executor of the liquidation",
+              "rewardAmount": "The amount the rewarded account will receive",
+              "targetAccount": "Account to be liquidated",
+              "targetAccountBalanceDelta": "The delta amount the target account balance should change by",
+              "useDefaultRewardAccount": "Whether or not the default reward account receives the rewardAmount"
+            }
+          },
+          "realtimeBalanceOf(address,uint256)": {
+            "details": "Calculate the real balance of a user, taking in consideration all agreements of the account",
+            "params": {
+              "account": "for the query",
+              "timestamp": "Time of balance"
+            },
+            "returns": {
+              "availableBalance": "Real-time balance",
+              "deposit": "Account deposit",
+              "owedDeposit": "Account owed Deposit"
+            }
+          },
+          "realtimeBalanceOfNow(address)": {
+            "details": "realtimeBalanceOf with timestamp equals to block timestamp",
+            "params": {
+              "account": "for the query"
+            },
+            "returns": {
+              "availableBalance": "Real-time balance",
+              "deposit": "Account deposit",
+              "owedDeposit": "Account owed Deposit"
+            }
+          },
+          "settleBalance(address,int256)": {
+            "custom:modifiers": "  - onlyAgreement",
+            "details": "The agreement needs to make sure that the balance delta is balanced afterwards",
+            "params": {
+              "account": "Account to query.",
+              "delta": "Amount of balance delta to be settled"
+            }
+          },
+          "terminateAgreement(bytes32,uint256)": {
+            "details": "Close the agreement",
+            "params": {
+              "id": "Agreement ID"
+            }
+          },
+          "updateAgreementData(bytes32,bytes32[])": {
+            "details": "Create a new agreement",
+            "params": {
+              "data": "Agreement data",
+              "id": "Agreement ID"
+            }
+          },
+          "updateAgreementStateSlot(address,uint256,bytes32[])": {
+            "custom:note": " - To clear the storage out, provide zero-ed array of intended length",
+            "details": "Update agreement state slot",
+            "params": {
+              "account": "Account to be updated"
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {
+          "getAccountActiveAgreements(address)": {
+            "notice": "Get a list of agreements that is active for the account"
+          },
+          "isAccountCritical(address,uint256)": {
+            "notice": "Check if account is critical"
+          },
+          "isAccountCriticalNow(address)": {
+            "notice": "Check if account is critical now (current host.getNow())"
+          },
+          "isAccountSolvent(address,uint256)": {
+            "notice": "Check if account is solvent"
+          },
+          "isAccountSolventNow(address)": {
+            "notice": "Check if account is solvent now"
+          },
+          "realtimeBalanceOfNow(address)": {
+            "notice": "Calculate the realtime balance given the current host.getNow() value"
+          },
+          "settleBalance(address,int256)": {
+            "notice": "Settle balance from an account by the agreement"
+          }
+        },
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@decentral.ee/=node_modules/@decentral.ee/",
+        ":@ensdomains/=node_modules/@ensdomains/",
+        ":@openzeppelin/=node_modules/@openzeppelin/",
+        ":@superfluid-finance/=node_modules/@superfluid-finance/",
+        ":contracts/=artifacts/contracts/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":eth-gas-reporter/=node_modules/eth-gas-reporter/",
+        ":forge-std/=lib/forge-std/src/",
+        ":hardhat/=node_modules/hardhat/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluidToken.sol": "ISuperfluidToken"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperAgreement.sol": {
+        "keccak256": "0xc3a6a907245116bcecc70fe4b207454012e8ce4fa190228fb8bbe39e0b1bc5cf",
+        "urls": [
+          "bzz-raw://83c116bdae48685d20e5a27c942111e685ec1ef6334e7ff6f6d9af66edbd8025",
+          "dweb:/ipfs/QmTnVuNTaRFiDmkAmDk7NFYdfQTW1kqgBZiY2exC6k8jDx"
+        ],
+        "license": "AGPLv3"
+      },
+      "node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluidToken.sol": {
+        "keccak256": "0x3eec5a3bf337cd319c1918fd1b16f350cf5f6850ac71f6859066fbf86e734ff4",
+        "urls": [
+          "bzz-raw://cda19a2f5ca18e79c1e2300c8efac84c718df76c4fb313f59f84264a4c6b398a",
+          "dweb:/ipfs/QmfQiwgDH5Q64w5ufBnDzVaeWv6WCZ6fLTrYu1FSYfBGhq"
+        ],
+        "license": "AGPLv3"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluidToken.sol",
+    "id": 29910,
+    "exportedSymbols": {
+      "ISuperAgreement": [
+        28459
+      ],
+      "ISuperfluidToken": [
+        29909
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "35:14638:34",
+    "nodes": [
+      {
+        "id": 29637,
+        "nodeType": "PragmaDirective",
+        "src": "35:25:34",
+        "literals": [
+          "solidity",
+          ">=",
+          "0.8",
+          ".0"
+        ]
+      },
+      {
+        "id": 29639,
+        "nodeType": "ImportDirective",
+        "src": "62:56:34",
+        "absolutePath": "node_modules/@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperAgreement.sol",
+        "file": "./ISuperAgreement.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 29910,
+        "sourceUnit": 28460,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 29638,
+              "name": "ISuperAgreement",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 28459,
+              "src": "71:15:34",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 29909,
+        "nodeType": "ContractDefinition",
+        "src": "188:14484:34",
+        "nodes": [
+          {
+            "id": 29646,
+            "nodeType": "FunctionDefinition",
+            "src": "473:55:34",
+            "documentation": {
+              "id": 29641,
+              "nodeType": "StructuredDocumentation",
+              "src": "408:60:34",
+              "text": " @dev Get superfluid host contract address"
+            },
+            "functionSelector": "20bc4425",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getHost",
+            "nameLocation": "482:7:34",
+            "parameters": {
+              "id": 29642,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "489:2:34"
+            },
+            "returnParameters": {
+              "id": 29645,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29644,
+                  "mutability": "mutable",
+                  "name": "host",
+                  "nameLocation": "522:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29646,
+                  "src": "514:12:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29643,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "514:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "513:14:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29651,
+            "nodeType": "StructDefinition",
+            "src": "916:90:34",
+            "canonicalName": "ISuperfluidToken.LiquidationTypeData",
+            "members": [
+              {
+                "constant": false,
+                "id": 29648,
+                "mutability": "mutable",
+                "name": "version",
+                "nameLocation": "961:7:34",
+                "nodeType": "VariableDeclaration",
+                "scope": 29651,
+                "src": "953:15:34",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29647,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "953:7:34",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29650,
+                "mutability": "mutable",
+                "name": "liquidationType",
+                "nameLocation": "984:15:34",
+                "nodeType": "VariableDeclaration",
+                "scope": 29651,
+                "src": "978:21:34",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 29649,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "978:5:34",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "LiquidationTypeData",
+            "nameLocation": "923:19:34",
+            "scope": 29909,
+            "visibility": "public"
+          },
+          {
+            "id": 29665,
+            "nodeType": "FunctionDefinition",
+            "src": "1534:222:34",
+            "documentation": {
+              "id": 29652,
+              "nodeType": "StructuredDocumentation",
+              "src": "1208:321:34",
+              "text": " @dev Calculate the real balance of a user, taking in consideration all agreements of the account\n @param account for the query\n @param timestamp Time of balance\n @return availableBalance Real-time balance\n @return deposit Account deposit\n @return owedDeposit Account owed Deposit"
+            },
+            "functionSelector": "eb3537cc",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "realtimeBalanceOf",
+            "nameLocation": "1543:17:34",
+            "parameters": {
+              "id": 29657,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29654,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "1577:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29665,
+                  "src": "1569:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29653,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1569:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29656,
+                  "mutability": "mutable",
+                  "name": "timestamp",
+                  "nameLocation": "1601:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29665,
+                  "src": "1593:17:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29655,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1593:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1560:56:34"
+            },
+            "returnParameters": {
+              "id": 29664,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29659,
+                  "mutability": "mutable",
+                  "name": "availableBalance",
+                  "nameLocation": "1676:16:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29665,
+                  "src": "1669:23:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 29658,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1669:6:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29661,
+                  "mutability": "mutable",
+                  "name": "deposit",
+                  "nameLocation": "1714:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29665,
+                  "src": "1706:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29660,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1706:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29663,
+                  "mutability": "mutable",
+                  "name": "owedDeposit",
+                  "nameLocation": "1743:11:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29665,
+                  "src": "1735:19:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29662,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1735:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1655:100:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29679,
+            "nodeType": "FunctionDefinition",
+            "src": "2106:230:34",
+            "documentation": {
+              "id": 29666,
+              "nodeType": "StructuredDocumentation",
+              "src": "1762:339:34",
+              "text": " @notice Calculate the realtime balance given the current host.getNow() value\n @dev realtimeBalanceOf with timestamp equals to block timestamp\n @param account for the query\n @return availableBalance Real-time balance\n @return deposit Account deposit\n @return owedDeposit Account owed Deposit"
+            },
+            "functionSelector": "2ec8eec7",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "realtimeBalanceOfNow",
+            "nameLocation": "2115:20:34",
+            "parameters": {
+              "id": 29669,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29668,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "2152:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29679,
+                  "src": "2144:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29667,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2144:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2135:30:34"
+            },
+            "returnParameters": {
+              "id": 29678,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29671,
+                  "mutability": "mutable",
+                  "name": "availableBalance",
+                  "nameLocation": "2225:16:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29679,
+                  "src": "2218:23:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 29670,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2218:6:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29673,
+                  "mutability": "mutable",
+                  "name": "deposit",
+                  "nameLocation": "2263:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29679,
+                  "src": "2255:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29672,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2255:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29675,
+                  "mutability": "mutable",
+                  "name": "owedDeposit",
+                  "nameLocation": "2292:11:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29679,
+                  "src": "2284:19:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29674,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2284:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29677,
+                  "mutability": "mutable",
+                  "name": "timestamp",
+                  "nameLocation": "2325:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29679,
+                  "src": "2317:17:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29676,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2317:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2204:131:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29689,
+            "nodeType": "FunctionDefinition",
+            "src": "2656:140:34",
+            "documentation": {
+              "id": 29680,
+              "nodeType": "StructuredDocumentation",
+              "src": "2342:309:34",
+              "text": " @notice Check if account is critical\n @dev A critical account is when availableBalance < 0\n @param account The account to check\n @param timestamp The time we'd like to check if the account is critical (should use future)\n @return isCritical Whether the account is critical"
+            },
+            "functionSelector": "d9d078d6",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isAccountCritical",
+            "nameLocation": "2665:17:34",
+            "parameters": {
+              "id": 29685,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29682,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "2700:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29689,
+                  "src": "2692:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29681,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2692:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29684,
+                  "mutability": "mutable",
+                  "name": "timestamp",
+                  "nameLocation": "2725:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29689,
+                  "src": "2717:17:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29683,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2717:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2682:58:34"
+            },
+            "returnParameters": {
+              "id": 29688,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29687,
+                  "mutability": "mutable",
+                  "name": "isCritical",
+                  "nameLocation": "2784:10:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29689,
+                  "src": "2779:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 29686,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2779:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2778:17:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29697,
+            "nodeType": "FunctionDefinition",
+            "src": "3046:116:34",
+            "documentation": {
+              "id": 29690,
+              "nodeType": "StructuredDocumentation",
+              "src": "2802:239:34",
+              "text": " @notice Check if account is critical now (current host.getNow())\n @dev A critical account is when availableBalance < 0\n @param account The account to check\n @return isCritical Whether the account is critical"
+            },
+            "functionSelector": "79359f6f",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isAccountCriticalNow",
+            "nameLocation": "3055:20:34",
+            "parameters": {
+              "id": 29693,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29692,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "3093:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29697,
+                  "src": "3085:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29691,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3085:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3075:31:34"
+            },
+            "returnParameters": {
+              "id": 29696,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29695,
+                  "mutability": "mutable",
+                  "name": "isCritical",
+                  "nameLocation": "3150:10:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29697,
+                  "src": "3145:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 29694,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3145:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3144:17:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29707,
+            "nodeType": "FunctionDefinition",
+            "src": "3556:138:34",
+            "documentation": {
+              "id": 29698,
+              "nodeType": "StructuredDocumentation",
+              "src": "3168:383:34",
+              "text": " @notice Check if account is solvent\n @dev An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance\n @param account The account to check\n @param timestamp The time we'd like to check if the account is solvent (should use future)\n @return isSolvent True if the account is solvent, false otherwise"
+            },
+            "functionSelector": "b84cdd4a",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isAccountSolvent",
+            "nameLocation": "3565:16:34",
+            "parameters": {
+              "id": 29703,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29700,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "3599:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29707,
+                  "src": "3591:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29699,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3591:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29702,
+                  "mutability": "mutable",
+                  "name": "timestamp",
+                  "nameLocation": "3624:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29707,
+                  "src": "3616:17:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29701,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3616:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3581:58:34"
+            },
+            "returnParameters": {
+              "id": 29706,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29705,
+                  "mutability": "mutable",
+                  "name": "isSolvent",
+                  "nameLocation": "3683:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29707,
+                  "src": "3678:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 29704,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3678:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3677:16:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29715,
+            "nodeType": "FunctionDefinition",
+            "src": "3994:114:34",
+            "documentation": {
+              "id": 29708,
+              "nodeType": "StructuredDocumentation",
+              "src": "3700:289:34",
+              "text": " @notice Check if account is solvent now\n @dev An account is insolvent when the sum of deposits for a token can't cover the negative availableBalance\n @param account The account to check\n @return isSolvent True if the account is solvent, false otherwise"
+            },
+            "functionSelector": "bb0d196e",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isAccountSolventNow",
+            "nameLocation": "4003:19:34",
+            "parameters": {
+              "id": 29711,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29710,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "4040:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29715,
+                  "src": "4032:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29709,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4032:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4022:31:34"
+            },
+            "returnParameters": {
+              "id": 29714,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29713,
+                  "mutability": "mutable",
+                  "name": "isSolvent",
+                  "nameLocation": "4097:9:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29715,
+                  "src": "4092:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 29712,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4092:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4091:16:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29725,
+            "nodeType": "FunctionDefinition",
+            "src": "4396:132:34",
+            "documentation": {
+              "id": 29716,
+              "nodeType": "StructuredDocumentation",
+              "src": "4114:277:34",
+              "text": " @notice Get a list of agreements that is active for the account\n @dev An active agreement is one that has state for the account\n @param account Account to query\n @return activeAgreements List of accounts that have non-zero states for the account"
+            },
+            "functionSelector": "386fa221",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getAccountActiveAgreements",
+            "nameLocation": "4405:26:34",
+            "parameters": {
+              "id": 29719,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29718,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "4440:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29725,
+                  "src": "4432:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29717,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4432:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4431:17:34"
+            },
+            "returnParameters": {
+              "id": 29724,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29723,
+                  "mutability": "mutable",
+                  "name": "activeAgreements",
+                  "nameLocation": "4510:16:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29725,
+                  "src": "4485:41:34",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_contract$_ISuperAgreement_$28459_$dyn_memory_ptr",
+                    "typeString": "contract ISuperAgreement[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29721,
+                      "nodeType": "UserDefinedTypeName",
+                      "pathNode": {
+                        "id": 29720,
+                        "name": "ISuperAgreement",
+                        "nodeType": "IdentifierPath",
+                        "referencedDeclaration": 28459,
+                        "src": "4485:15:34"
+                      },
+                      "referencedDeclaration": 28459,
+                      "src": "4485:15:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ISuperAgreement_$28459",
+                        "typeString": "contract ISuperAgreement"
+                      }
+                    },
+                    "id": 29722,
+                    "nodeType": "ArrayTypeName",
+                    "src": "4485:17:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_contract$_ISuperAgreement_$28459_$dyn_storage_ptr",
+                      "typeString": "contract ISuperAgreement[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4484:43:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29734,
+            "nodeType": "FunctionDefinition",
+            "src": "4849:101:34",
+            "documentation": {
+              "id": 29726,
+              "nodeType": "StructuredDocumentation",
+              "src": "4734:110:34",
+              "text": " @dev Create a new agreement\n @param id Agreement ID\n @param data Agreement data"
+            },
+            "functionSelector": "12a6a3f8",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createAgreement",
+            "nameLocation": "4858:15:34",
+            "parameters": {
+              "id": 29732,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29728,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "4891:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29734,
+                  "src": "4883:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29727,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4883:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29731,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "4922:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29734,
+                  "src": "4903:23:34",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_calldata_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29729,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "4903:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29730,
+                    "nodeType": "ArrayTypeName",
+                    "src": "4903:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4873:59:34"
+            },
+            "returnParameters": {
+              "id": 29733,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "4949:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29744,
+            "nodeType": "EventDefinition",
+            "src": "5134:113:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29735,
+              "nodeType": "StructuredDocumentation",
+              "src": "4955:174:34",
+              "text": " @dev Agreement created event\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @param data Agreement data"
+            },
+            "eventSelector": "770ea40a13a4644573ed785e5c7116890709947918747febc5add46feb531e2d",
+            "name": "AgreementCreated",
+            "nameLocation": "5140:16:34",
+            "parameters": {
+              "id": 29743,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29737,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "5182:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29744,
+                  "src": "5166:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29736,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5166:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29739,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "5214:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29744,
+                  "src": "5206:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29738,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5206:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29742,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "5236:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29744,
+                  "src": "5226:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29740,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "5226:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29741,
+                    "nodeType": "ArrayTypeName",
+                    "src": "5226:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5156:90:34"
+            }
+          },
+          {
+            "id": 29757,
+            "nodeType": "FunctionDefinition",
+            "src": "5442:170:34",
+            "documentation": {
+              "id": 29745,
+              "nodeType": "StructuredDocumentation",
+              "src": "5253:184:34",
+              "text": " @dev Get data of the agreement\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @return data Data of the agreement"
+            },
+            "functionSelector": "6c2d9f2f",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getAgreementData",
+            "nameLocation": "5451:16:34",
+            "parameters": {
+              "id": 29752,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29747,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "5485:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29757,
+                  "src": "5477:22:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29746,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5477:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29749,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "5517:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29757,
+                  "src": "5509:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29748,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5509:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29751,
+                  "mutability": "mutable",
+                  "name": "dataLength",
+                  "nameLocation": "5534:10:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29757,
+                  "src": "5529:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29750,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5529:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5467:83:34"
+            },
+            "returnParameters": {
+              "id": 29756,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29755,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "5606:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29757,
+                  "src": "5589:21:34",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29753,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "5589:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29754,
+                    "nodeType": "ArrayTypeName",
+                    "src": "5589:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5588:23:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29766,
+            "nodeType": "FunctionDefinition",
+            "src": "5733:105:34",
+            "documentation": {
+              "id": 29758,
+              "nodeType": "StructuredDocumentation",
+              "src": "5618:110:34",
+              "text": " @dev Create a new agreement\n @param id Agreement ID\n @param data Agreement data"
+            },
+            "functionSelector": "a1b2bf8b",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "updateAgreementData",
+            "nameLocation": "5742:19:34",
+            "parameters": {
+              "id": 29764,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29760,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "5779:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29766,
+                  "src": "5771:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29759,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5771:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29763,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "5810:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29766,
+                  "src": "5791:23:34",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_calldata_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29761,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "5791:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29762,
+                    "nodeType": "ArrayTypeName",
+                    "src": "5791:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5761:59:34"
+            },
+            "returnParameters": {
+              "id": 29765,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "5837:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29776,
+            "nodeType": "EventDefinition",
+            "src": "6022:113:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29767,
+              "nodeType": "StructuredDocumentation",
+              "src": "5843:174:34",
+              "text": " @dev Agreement updated event\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @param data Agreement data"
+            },
+            "eventSelector": "0c4c547b3a4fcaa5be8353b3111472b124155bccc86de811d4a481c9e6e9faca",
+            "name": "AgreementUpdated",
+            "nameLocation": "6028:16:34",
+            "parameters": {
+              "id": 29775,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29769,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "6070:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29776,
+                  "src": "6054:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29768,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6054:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29771,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "6102:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29776,
+                  "src": "6094:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29770,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6094:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29774,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "6124:4:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29776,
+                  "src": "6114:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29772,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "6114:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29773,
+                    "nodeType": "ArrayTypeName",
+                    "src": "6114:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6044:90:34"
+            }
+          },
+          {
+            "id": 29784,
+            "nodeType": "FunctionDefinition",
+            "src": "6219:96:34",
+            "documentation": {
+              "id": 29777,
+              "nodeType": "StructuredDocumentation",
+              "src": "6141:73:34",
+              "text": " @dev Close the agreement\n @param id Agreement ID"
+            },
+            "functionSelector": "27048397",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "terminateAgreement",
+            "nameLocation": "6228:18:34",
+            "parameters": {
+              "id": 29782,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29779,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "6264:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29784,
+                  "src": "6256:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29778,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6256:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29781,
+                  "mutability": "mutable",
+                  "name": "dataLength",
+                  "nameLocation": "6281:10:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29784,
+                  "src": "6276:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29780,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6276:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6246:51:34"
+            },
+            "returnParameters": {
+              "id": 29783,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "6314:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29791,
+            "nodeType": "EventDefinition",
+            "src": "6468:92:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29785,
+              "nodeType": "StructuredDocumentation",
+              "src": "6320:143:34",
+              "text": " @dev Agreement terminated event\n @param agreementClass Contract address of the agreement\n @param id Agreement ID"
+            },
+            "eventSelector": "71a63dc095de07aa5512ad57a7596a39516317e316981a1cd71000057be1537b",
+            "name": "AgreementTerminated",
+            "nameLocation": "6474:19:34",
+            "parameters": {
+              "id": 29790,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29787,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "6519:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29791,
+                  "src": "6503:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29786,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6503:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29789,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "6551:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29791,
+                  "src": "6543:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29788,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6543:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6493:66:34"
+            }
+          },
+          {
+            "id": 29802,
+            "nodeType": "FunctionDefinition",
+            "src": "6770:143:34",
+            "documentation": {
+              "id": 29792,
+              "nodeType": "StructuredDocumentation",
+              "src": "6566:199:34",
+              "text": " @dev Update agreement state slot\n @param account Account to be updated\n @custom:note \n - To clear the storage out, provide zero-ed array of intended length"
+            },
+            "functionSelector": "090c415e",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "updateAgreementStateSlot",
+            "nameLocation": "6779:24:34",
+            "parameters": {
+              "id": 29800,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29794,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "6821:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29802,
+                  "src": "6813:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29793,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6813:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29796,
+                  "mutability": "mutable",
+                  "name": "slotId",
+                  "nameLocation": "6846:6:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29802,
+                  "src": "6838:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29795,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6838:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29799,
+                  "mutability": "mutable",
+                  "name": "slotData",
+                  "nameLocation": "6881:8:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29802,
+                  "src": "6862:27:34",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_calldata_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29797,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "6862:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29798,
+                    "nodeType": "ArrayTypeName",
+                    "src": "6862:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6803:92:34"
+            },
+            "returnParameters": {
+              "id": 29801,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "6912:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29811,
+            "nodeType": "EventDefinition",
+            "src": "7137:131:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29803,
+              "nodeType": "StructuredDocumentation",
+              "src": "6918:214:34",
+              "text": " @dev Agreement account state updated event\n @param agreementClass Contract address of the agreement\n @param account Account updated\n @param slotId slot id of the agreement state"
+            },
+            "eventSelector": "30f416fa68fca014a0f334464c64b000ba53e99b6d2afdea9d5ca756372d5985",
+            "name": "AgreementStateUpdated",
+            "nameLocation": "7143:21:34",
+            "parameters": {
+              "id": 29810,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29805,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "7190:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29811,
+                  "src": "7174:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29804,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7174:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29807,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "7230:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29811,
+                  "src": "7214:23:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29806,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7214:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29809,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "slotId",
+                  "nameLocation": "7255:6:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29811,
+                  "src": "7247:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29808,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7247:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7164:103:34"
+            }
+          },
+          {
+            "id": 29826,
+            "nodeType": "FunctionDefinition",
+            "src": "7546:209:34",
+            "documentation": {
+              "id": 29812,
+              "nodeType": "StructuredDocumentation",
+              "src": "7274:267:34",
+              "text": " @dev Get data of the slot of the state of an agreement\n @param agreementClass Contract address of the agreement\n @param account Account to query\n @param slotId slot id of the state\n @param dataLength length of the state data"
+            },
+            "functionSelector": "4b61cc33",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getAgreementStateSlot",
+            "nameLocation": "7555:21:34",
+            "parameters": {
+              "id": 29821,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29814,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "7594:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29826,
+                  "src": "7586:22:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29813,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7586:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29816,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "7626:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29826,
+                  "src": "7618:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29815,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7618:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29818,
+                  "mutability": "mutable",
+                  "name": "slotId",
+                  "nameLocation": "7651:6:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29826,
+                  "src": "7643:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29817,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7643:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29820,
+                  "mutability": "mutable",
+                  "name": "dataLength",
+                  "nameLocation": "7672:10:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29826,
+                  "src": "7667:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29819,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7667:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7576:112:34"
+            },
+            "returnParameters": {
+              "id": 29825,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29824,
+                  "mutability": "mutable",
+                  "name": "slotData",
+                  "nameLocation": "7745:8:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29826,
+                  "src": "7728:25:34",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29822,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "7728:7:34",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 29823,
+                    "nodeType": "ArrayTypeName",
+                    "src": "7728:9:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7727:27:34"
+            },
+            "scope": 29909,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29834,
+            "nodeType": "FunctionDefinition",
+            "src": "8086:93:34",
+            "documentation": {
+              "id": 29827,
+              "nodeType": "StructuredDocumentation",
+              "src": "7761:320:34",
+              "text": " @notice Settle balance from an account by the agreement\n @dev The agreement needs to make sure that the balance delta is balanced afterwards\n @param account Account to query.\n @param delta Amount of balance delta to be settled\n @custom:modifiers \n  - onlyAgreement"
+            },
+            "functionSelector": "cf97256d",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "settleBalance",
+            "nameLocation": "8095:13:34",
+            "parameters": {
+              "id": 29832,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29829,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "8126:7:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29834,
+                  "src": "8118:15:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29828,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8118:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29831,
+                  "mutability": "mutable",
+                  "name": "delta",
+                  "nameLocation": "8150:5:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29834,
+                  "src": "8143:12:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 29830,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8143:6:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8108:53:34"
+            },
+            "returnParameters": {
+              "id": 29833,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "8178:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29852,
+            "nodeType": "FunctionDefinition",
+            "src": "9344:292:34",
+            "documentation": {
+              "id": 29835,
+              "nodeType": "StructuredDocumentation",
+              "src": "8185:1154:34",
+              "text": " @dev Make liquidation payouts (v2)\n @param id Agreement ID\n @param liquidationTypeData Data regarding the version of the liquidation schema and the type\n @param liquidatorAccount Address of the executor of the liquidation\n @param useDefaultRewardAccount Whether or not the default reward account receives the rewardAmount\n @param targetAccount Account to be liquidated\n @param rewardAmount The amount the rewarded account will receive\n @param targetAccountBalanceDelta The delta amount the target account balance should change by\n @custom:note \n - If a bailout is required (bailoutAmount > 0)\n   - the actual reward (single deposit) goes to the executor,\n   - while the reward account becomes the bailout account\n   - total bailout include: bailout amount + reward amount\n   - the targetAccount will be bailed out\n - If a bailout is not required\n   - the targetAccount will pay the rewardAmount\n   - the liquidator (reward account in PIC period) will receive the rewardAmount\n @custom:modifiers \n  - onlyAgreement"
+            },
+            "functionSelector": "1863e809",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "makeLiquidationPayoutsV2",
+            "nameLocation": "9353:24:34",
+            "parameters": {
+              "id": 29850,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29837,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "9400:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9392:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29836,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9392:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29839,
+                  "mutability": "mutable",
+                  "name": "liquidationTypeData",
+                  "nameLocation": "9425:19:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9412:32:34",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 29838,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9412:5:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29841,
+                  "mutability": "mutable",
+                  "name": "liquidatorAccount",
+                  "nameLocation": "9462:17:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9454:25:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29840,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9454:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29843,
+                  "mutability": "mutable",
+                  "name": "useDefaultRewardAccount",
+                  "nameLocation": "9494:23:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9489:28:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 29842,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9489:4:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29845,
+                  "mutability": "mutable",
+                  "name": "targetAccount",
+                  "nameLocation": "9535:13:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9527:21:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29844,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9527:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29847,
+                  "mutability": "mutable",
+                  "name": "rewardAmount",
+                  "nameLocation": "9566:12:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9558:20:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29846,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9558:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29849,
+                  "mutability": "mutable",
+                  "name": "targetAccountBalanceDelta",
+                  "nameLocation": "9595:25:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29852,
+                  "src": "9588:32:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 29848,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9588:6:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "9382:244:34"
+            },
+            "returnParameters": {
+              "id": 29851,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "9635:0:34"
+            },
+            "scope": 29909,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29871,
+            "nodeType": "EventDefinition",
+            "src": "11158:321:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29853,
+              "nodeType": "StructuredDocumentation",
+              "src": "9641:1512:34",
+              "text": " @dev Agreement liquidation event v2 (including agent account)\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @param liquidatorAccount Address of the executor of the liquidation\n @param targetAccount Account of the stream sender\n @param rewardAmountReceiver Account that collects the reward or bails out insolvent accounts\n @param rewardAmount The amount the reward recipient account balance should change by\n @param targetAccountBalanceDelta The amount the sender account balance should change by\n @param liquidationTypeData The encoded liquidation type data including the version (how to decode)\n @custom:note \n Reward account rule:\n - if the agreement is liquidated during the PIC period\n   - the rewardAmountReceiver will get the rewardAmount (remaining deposit), regardless of the liquidatorAccount\n   - the targetAccount will pay for the rewardAmount\n - if the agreement is liquidated after the PIC period AND the targetAccount is solvent\n   - the rewardAmountReceiver will get the rewardAmount (remaining deposit)\n   - the targetAccount will pay for the rewardAmount\n - if the targetAccount is insolvent\n   - the liquidatorAccount will get the rewardAmount (single deposit)\n   - the default reward account (governance) will pay for both the rewardAmount and bailoutAmount\n   - the targetAccount will receive the bailoutAmount"
+            },
+            "eventSelector": "b8381a3ce157650e06186e3e8f4dd4dc29236f2688b6eed1893d0a60d7c6386f",
+            "name": "AgreementLiquidatedV2",
+            "nameLocation": "11164:21:34",
+            "parameters": {
+              "id": 29870,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29855,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "11211:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11195:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29854,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11195:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29857,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "11243:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11235:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29856,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11235:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29859,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "liquidatorAccount",
+                  "nameLocation": "11271:17:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11255:33:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29858,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11255:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29861,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "targetAccount",
+                  "nameLocation": "11314:13:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11298:29:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29860,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11298:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29863,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "rewardAmountReceiver",
+                  "nameLocation": "11345:20:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11337:28:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29862,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11337:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29865,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "rewardAmount",
+                  "nameLocation": "11383:12:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11375:20:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29864,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11375:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29867,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "targetAccountBalanceDelta",
+                  "nameLocation": "11412:25:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11405:32:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 29866,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11405:6:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29869,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "liquidationTypeData",
+                  "nameLocation": "11453:19:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29871,
+                  "src": "11447:25:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 29868,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "11447:5:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "11185:293:34"
+            }
+          },
+          {
+            "id": 29884,
+            "nodeType": "EventDefinition",
+            "src": "12731:201:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29872,
+              "nodeType": "StructuredDocumentation",
+              "src": "12291:435:34",
+              "text": " @dev Agreement liquidation event (DEPRECATED BY AgreementLiquidatedBy)\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @param penaltyAccount Account of the agreement to be penalized\n @param rewardAccount Account that collect the reward\n @param rewardAmount Amount of liquidation reward\n @custom:deprecated Use AgreementLiquidatedV2 instead"
+            },
+            "eventSelector": "8505c3d8f1f184f032cf0bc4cd80ee61c8b9d94f8907c3281bf0101a2610fe80",
+            "name": "AgreementLiquidated",
+            "nameLocation": "12737:19:34",
+            "parameters": {
+              "id": 29883,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29874,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "12782:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29884,
+                  "src": "12766:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29873,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "12766:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29876,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "12814:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29884,
+                  "src": "12806:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29875,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "12806:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29878,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "penaltyAccount",
+                  "nameLocation": "12842:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29884,
+                  "src": "12826:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29877,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "12826:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29880,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "rewardAccount",
+                  "nameLocation": "12882:13:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29884,
+                  "src": "12866:29:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29879,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "12866:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29882,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "rewardAmount",
+                  "nameLocation": "12913:12:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29884,
+                  "src": "12905:20:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29881,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "12905:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "12756:175:34"
+            }
+          },
+          {
+            "id": 29891,
+            "nodeType": "EventDefinition",
+            "src": "13219:91:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29885,
+              "nodeType": "StructuredDocumentation",
+              "src": "12938:276:34",
+              "text": " @dev System bailout occurred (DEPRECATED BY AgreementLiquidatedBy)\n @param bailoutAccount Account that bailout the penalty account\n @param bailoutAmount Amount of account bailout\n @custom:deprecated Use AgreementLiquidatedV2 instead"
+            },
+            "eventSelector": "d6c9a04afc81e8c614310bbee6c9e84f5abe15b82038bf8347014ce0852e6ffd",
+            "name": "Bailout",
+            "nameLocation": "13225:7:34",
+            "parameters": {
+              "id": 29890,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29887,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "bailoutAccount",
+                  "nameLocation": "13258:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29891,
+                  "src": "13242:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29886,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "13242:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29889,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "bailoutAmount",
+                  "nameLocation": "13290:13:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29891,
+                  "src": "13282:21:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29888,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "13282:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "13232:77:34"
+            }
+          },
+          {
+            "id": 29908,
+            "nodeType": "EventDefinition",
+            "src": "14403:267:34",
+            "anonymous": false,
+            "documentation": {
+              "id": 29892,
+              "nodeType": "StructuredDocumentation",
+              "src": "13316:1082:34",
+              "text": " @dev Agreement liquidation event (DEPRECATED BY AgreementLiquidatedV2)\n @param liquidatorAccount Account of the agent that performed the liquidation.\n @param agreementClass Contract address of the agreement\n @param id Agreement ID\n @param penaltyAccount Account of the agreement to be penalized\n @param bondAccount Account that collect the reward or bailout accounts\n @param rewardAmount Amount of liquidation reward\n @param bailoutAmount Amount of liquidation bailouot\n @custom:deprecated Use AgreementLiquidatedV2 instead\n @custom:note \n Reward account rule:\n - if bailout is equal to 0, then\n   - the bondAccount will get the rewardAmount,\n   - the penaltyAccount will pay for the rewardAmount.\n - if bailout is larger than 0, then\n   - the liquidatorAccount will get the rewardAmouont,\n   - the bondAccount will pay for both the rewardAmount and bailoutAmount,\n   - the penaltyAccount will pay for the rewardAmount while get the bailoutAmount."
+            },
+            "eventSelector": "5f22b60e58b1d6de858bc27c48d5a4653e052da99e083c1d88bb8c58e1abc8ef",
+            "name": "AgreementLiquidatedBy",
+            "nameLocation": "14409:21:34",
+            "parameters": {
+              "id": 29907,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29894,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "liquidatorAccount",
+                  "nameLocation": "14448:17:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14440:25:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29893,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14440:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29896,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "agreementClass",
+                  "nameLocation": "14491:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14475:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29895,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14475:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29898,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "14523:2:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14515:10:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29897,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14515:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29900,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "penaltyAccount",
+                  "nameLocation": "14551:14:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14535:30:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29899,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14535:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29902,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "bondAccount",
+                  "nameLocation": "14591:11:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14575:27:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29901,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14575:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29904,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "rewardAmount",
+                  "nameLocation": "14620:12:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14612:20:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29903,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14612:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29906,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "bailoutAmount",
+                  "nameLocation": "14650:13:34",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29908,
+                  "src": "14642:21:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 29905,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "14642:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "14430:239:34"
+            }
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ISuperfluidToken",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 29640,
+          "nodeType": "StructuredDocumentation",
+          "src": "121:66:34",
+          "text": " @title Superfluid token interface\n @author Superfluid"
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          29909
+        ],
+        "name": "ISuperfluidToken",
+        "nameLocation": "198:16:34",
+        "scope": 29910,
+        "usedErrors": []
+      }
+    ],
+    "license": "AGPLv3"
+  },
+  "id": 34
+}

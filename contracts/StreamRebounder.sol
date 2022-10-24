@@ -1,6 +1,8 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.13;
 
+// import "hardhat/// console.sol";
+
 import {ISuperfluid, ISuperToken, SuperAppDefinitions} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol";
 
 import {CFAv1Library} from "@superfluid-finance/ethereum-contracts/contracts/apps/CFAv1Library.sol";
@@ -108,9 +110,12 @@ contract StreamRebounder is Ownable, ERC721 {
     function reveal(uint256 id) public {
         Properties memory properties = tokenIdToProperties[id];
 
+        // if stream is active 
         uint256 streamDuration = properties.end == 0 ? 
-                                    properties.end - properties.start :
-                                    block.timestamp - properties.start;
+        // then return now minus start time for length
+                                    block.timestamp - properties.start :
+        // otherwise, get recorded end time less start time for length
+                                    properties.end - properties.start;
 
         // if stream duration is greater than needed reveal duration
         if( streamDuration > revealDuration ) {
@@ -200,7 +205,9 @@ contract StreamRebounder is Ownable, ERC721 {
     /// 4 - Epic        - 7%  chance
     /// 5 - Legendary   - 2%  chance
     /// 6 - Primordial  - 1%  chance
-    function _getRarity(uint tokenId) internal view returns (uint256) {
+    function _getRarity(uint tokenId) public view returns (uint256) {
+        // console.log(block.difficulty);
+        // console.logBytes32(blockhash(block.number - 1));
         // get random number from 1 to 1000
         uint256 randomNumber = ( 1 + uint256(
             keccak256(
@@ -225,6 +232,7 @@ contract StreamRebounder is Ownable, ERC721 {
             } else {
                 // increase probability sum to include next level
                 probabilitySum += rarityArray[i];
+                // console.log(probabilitySum);
             }
 
             // then we'll see if it's under that, and if not, the cycle repeats
@@ -247,7 +255,7 @@ contract StreamRebounder is Ownable, ERC721 {
     /// 6 - Indigo      - 1/7 chance
     /// 7 - Violet      - 1/7 chance
     /// 8 - Rainbow     - occurs once upon 777 
-    function _getColor(uint tokenId) internal returns (uint256) {
+    function _getColor(uint tokenId) public returns (uint256) {
         // get a random number from 1 to 1000
         uint256 randomNumber = ( 1 + uint256(
             keccak256(
@@ -270,36 +278,42 @@ contract StreamRebounder is Ownable, ERC721 {
         }        
     }
 
-    // function _random(uint tokenId) public view returns (uint256) {
-    //     bytes32 blckhash = blockhash(block.number - 1); 
-
-    //     return ( 1 + uint256(
-    //         keccak256(
-    //             abi.encodePacked(
-    //                 block.difficulty,
-    //                 blckhash, 
-    //                 tokenId, 
-    //                 msg.sender
-    //             )
-    //         )
-    //     ) ) % 7;
-    // }
-
     /// @notice Provides NFT Metadata
-    function tokenURI(uint256 id) public view override returns (string memory) {
+    /// @param id token id we're getting metadata for
+    function tokenURI(uint256 id) public  view override returns (string memory) {
         Properties memory properties = tokenIdToProperties[id];
+
+        // console.log(properties.rarity);
+        // console.log(properties.color);
+        // console.log(properties.start);
+        // console.log(properties.end);
+
 
         // if not revealed, just show revealed=false, otherwise...
         //   revealed=true, rarity=whaterver, color=whatever, duration=whatever
-        return string(abi.encodePacked(
-            baseUrl,
-            !properties.revealed ? '?revealed=false' :
-            '?revealed=true',
-            '&rarity=', properties.rarity,
-            '&color=', properties.color,
-            // if stream is active, then return now minus start time for length. otherwise, get recorded end time less start time for length
-            '&streamTime=', properties.end == 0 ? block.timestamp - properties.start : properties.end - properties.start
-        ));
+
+        if (!properties.revealed) {
+            return string(abi.encodePacked(
+                baseUrl,
+                '?revealed=false'
+            ));
+        } else {
+            string(abi.encodePacked(
+                baseUrl,
+                '&rarity=', Strings.toString(properties.rarity),
+                '&color=', properties.color,
+                // // if stream is active, then return now minus start time for length. otherwise, get recorded end time less start time for length
+                '&streamTime=', properties.end == 0 ? block.timestamp - properties.start : properties.end - properties.start
+            )); 
+        }
+
+        // return string(abi.encodePacked(
+        //     "test1",
+        //     "test2",
+        //     "test3"
+        // ));
+
+
 
     }
 

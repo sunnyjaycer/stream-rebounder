@@ -147,19 +147,32 @@ before(async function () {
     
     //// INITIALIZING SPREADER CONTRACT
 
+    // deployment
     const streamRebounderFactory = await ethers.getContractFactory(
         "StreamRebounder",
         admin
     );
 
-    streamrebounder = await streamRebounderFactory.deploy(
+    streamrebounder = await streamRebounderFactory.connect(admin).deploy(
         sf.settings.config.hostAddress,
         ""
     );
 
-    await streamrebounder.setAllowListBatch(
+    // permitted tokens
+    await streamrebounder.connect(admin).setAllowListBatch(
         [usdcx.address, daix.address],
         [true, true]
+    );
+
+    /// 1 - Common      - 50% chance
+    /// 2 - Uncommon    - 30% chance
+    /// 3 - Rare        - 10% chance
+    /// 4 - Epic        - 7%  chance
+    /// 5 - Legendary   - 2%  chance
+    /// 6 - Primordial  - 1%  chance
+    // setting rarity array
+    await streamrebounder.connect(admin).setRarity(
+      [500,300,100,70,20,10]
     );
 
     // Transfer DAIx to Stream Rebounder contract
@@ -498,9 +511,9 @@ xdescribe("Poison Token Cannot Jail App", async function () {
 
 describe("Test Randomness", async function () {
 
-  it("_random returns within expected range", async function () {
+  it("", async function () {
 
-    const res = await streamrebounder.connect(alice)._random(779);
+    const res = await streamrebounder.connect(alice)._getRarity(779);
 
     console.log(res);
 

@@ -1,0 +1,475 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220bc799b314a7cdbae23cedbd4e317729630a8f15d528173d3e109c8d7965ce91764736f6c634300080e0033",
+    "sourceMap": "195:227:64:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;195:227:64;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220bc799b314a7cdbae23cedbd4e317729630a8f15d528173d3e109c8d7965ce91764736f6c634300080e0033",
+    "sourceMap": "195:227:64:-:0;;;;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"}],\"devdoc\":{\"author\":\"Superfluid\",\"details\":\"A library used for emitting missing and unaccessable events.\",\"kind\":\"dev\",\"methods\":{},\"title\":\"Events Emitter Library\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"node_modules/@superfluid-finance/ethereum-contracts/contracts/libs/EventsEmitter.sol\":\"EventsEmitter\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@decentral.ee/=node_modules/@decentral.ee/\",\":@ensdomains/=node_modules/@ensdomains/\",\":@openzeppelin/=node_modules/@openzeppelin/\",\":@superfluid-finance/=node_modules/@superfluid-finance/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":eth-gas-reporter/=node_modules/eth-gas-reporter/\",\":forge-std/=lib/forge-std/src/\",\":hardhat/=node_modules/hardhat/\"]},\"sources\":{\"node_modules/@superfluid-finance/ethereum-contracts/contracts/libs/EventsEmitter.sol\":{\"keccak256\":\"0x3e67a65d0a3f7808567e60be52e280999ed7ef3332bcba4aa23ea083553422bb\",\"license\":\"AGPLv3\",\"urls\":[\"bzz-raw://6a5b5bac9e108f3e12e3246d92b96c8fea259ebe8ba88acdff1034c5650441a3\",\"dweb:/ipfs/QmVUEMDpp79NaqEhZjLzdxWoLoBVAEdieuJA5pagYeH7Gd\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.14+commit.80d49f37"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "Transfer",
+          "anonymous": false
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@decentral.ee/=node_modules/@decentral.ee/",
+        ":@ensdomains/=node_modules/@ensdomains/",
+        ":@openzeppelin/=node_modules/@openzeppelin/",
+        ":@superfluid-finance/=node_modules/@superfluid-finance/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":eth-gas-reporter/=node_modules/eth-gas-reporter/",
+        ":forge-std/=lib/forge-std/src/",
+        ":hardhat/=node_modules/hardhat/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "node_modules/@superfluid-finance/ethereum-contracts/contracts/libs/EventsEmitter.sol": "EventsEmitter"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "node_modules/@superfluid-finance/ethereum-contracts/contracts/libs/EventsEmitter.sol": {
+        "keccak256": "0x3e67a65d0a3f7808567e60be52e280999ed7ef3332bcba4aa23ea083553422bb",
+        "urls": [
+          "bzz-raw://6a5b5bac9e108f3e12e3246d92b96c8fea259ebe8ba88acdff1034c5650441a3",
+          "dweb:/ipfs/QmVUEMDpp79NaqEhZjLzdxWoLoBVAEdieuJA5pagYeH7Gd"
+        ],
+        "license": "AGPLv3"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "node_modules/@superfluid-finance/ethereum-contracts/contracts/libs/EventsEmitter.sol",
+    "id": 45899,
+    "exportedSymbols": {
+      "EventsEmitter": [
+        45898
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "35:387:64",
+    "nodes": [
+      {
+        "id": 45872,
+        "nodeType": "PragmaDirective",
+        "src": "35:23:64",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".14"
+        ]
+      },
+      {
+        "id": 45898,
+        "nodeType": "ContractDefinition",
+        "src": "195:227:64",
+        "nodes": [
+          {
+            "id": 45881,
+            "nodeType": "EventDefinition",
+            "src": "223:72:64",
+            "anonymous": false,
+            "eventSelector": "ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "name": "Transfer",
+            "nameLocation": "229:8:64",
+            "parameters": {
+              "id": 45880,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45875,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "from",
+                  "nameLocation": "254:4:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45881,
+                  "src": "238:20:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 45874,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:7:64",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45877,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "276:2:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45881,
+                  "src": "260:18:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 45876,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:64",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45879,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "value",
+                  "nameLocation": "288:5:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45881,
+                  "src": "280:13:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45878,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "280:7:64",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "237:57:64"
+            }
+          },
+          {
+            "id": 45897,
+            "nodeType": "FunctionDefinition",
+            "src": "301:119:64",
+            "body": {
+              "id": 45896,
+              "nodeType": "Block",
+              "src": "373:47:64",
+              "statements": [
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 45891,
+                        "name": "from",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 45883,
+                        "src": "397:4:64",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 45892,
+                        "name": "to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 45885,
+                        "src": "403:2:64",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 45893,
+                        "name": "value",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 45887,
+                        "src": "407:5:64",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 45890,
+                      "name": "Transfer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 45881,
+                      "src": "388:8:64",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,address,uint256)"
+                      }
+                    },
+                    "id": 45894,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "388:25:64",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 45895,
+                  "nodeType": "EmitStatement",
+                  "src": "383:30:64"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "emitTransfer",
+            "nameLocation": "310:12:64",
+            "parameters": {
+              "id": 45888,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45883,
+                  "mutability": "mutable",
+                  "name": "from",
+                  "nameLocation": "331:4:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45897,
+                  "src": "323:12:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 45882,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "323:7:64",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45885,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "345:2:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45897,
+                  "src": "337:10:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 45884,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "337:7:64",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45887,
+                  "mutability": "mutable",
+                  "name": "value",
+                  "nameLocation": "357:5:64",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45897,
+                  "src": "349:13:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45886,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "349:7:64",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "322:41:64"
+            },
+            "returnParameters": {
+              "id": 45889,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "373:0:64"
+            },
+            "scope": 45898,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "EventsEmitter",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": {
+          "id": 45873,
+          "nodeType": "StructuredDocumentation",
+          "src": "60:134:64",
+          "text": " @title Events Emitter Library\n @author Superfluid\n @dev A library used for emitting missing and unaccessable events."
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          45898
+        ],
+        "name": "EventsEmitter",
+        "nameLocation": "203:13:64",
+        "scope": 45899,
+        "usedErrors": []
+      }
+    ],
+    "license": "AGPLv3"
+  },
+  "id": 64
+}
