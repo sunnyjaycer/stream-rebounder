@@ -303,6 +303,7 @@ contract StreamRebounder is Ownable, ERC721 {
                 '&rarity=', Strings.toString(properties.rarity),
                 '&color=', properties.color,
                 // // if stream is active, then return now minus start time for length. otherwise, get recorded end time less start time for length
+                // may be formatted in a binary fashion
                 '&streamTime=', properties.end == 0 ? block.timestamp - properties.start : properties.end - properties.start
             )); 
         }
