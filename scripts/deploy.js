@@ -14,22 +14,26 @@ async function main() {
   // await hre.run('compile');
 
   const signers = await hre.ethers.getSigners();
-  console.log(signers[70].address);
+  console.log("Deploying Address:", signers[70].address);
+
+  // show eth balance of address
+  const bal = await hre.ethers.provider.getBalance(signers[70].address);
+  console.log("Deployer ETH Balance:", bal.value);
 
   const GOERLI_HOST = "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9";
   const POLYGON_HOST = "0x3E14dC1b13c488a8d5D310918780c983bD5982E7";
   const OPTIMISM_HOST = "0x567c4B141ED61923967cA25Ef4906C8781069a10";
 
   // We get the contract to deploy
-  const Rebounder = await hre.ethers.getContractFactory("StreamRebounder");
-  const rebounder = await Rebounder.connect(signers[70]).deploy(
-    POLYGON_HOST, // goerli host
-    // <REGI KEY>
-  );
+  // const Rebounder = await hre.ethers.getContractFactory("StreamRebounder");
+  // const rebounder = await Rebounder.connect(signers[70]).deploy(
+  //   POLYGON_HOST, // goerli host
+  //   // <REGI KEY>
+  // );
 
-  await rebounder.deployed();
+  // await rebounder.deployed();
 
-  console.log("Rebounder deployed to:", rebounder.address);
+  // console.log("Rebounder deployed to:", rebounder.address);
 
   // // Transfer ownership
   // console.log("Transferring ownership to:", signers[1].address);
