@@ -4,9 +4,6 @@ const { Framework } = require("@superfluid-finance/sdk-core");
 const TestTokenABI =  require("@superfluid-finance/ethereum-contracts/build/contracts/TestToken.json");
 const SuperTokenFactoryABI = require("@superfluid-finance/ethereum-contracts/build/contracts/SuperTokenFactory.json").abi;
 
-const { getFlowOps } = require("./utils/FlowOps");
-const { flowIntoIntermediateEqualsFlowOut } = require("./utils/FlowAssertions");
-
 const { ethers, web3 } = require("hardhat");
 
 const deployFramework = require("@superfluid-finance/ethereum-contracts/scripts/deploy-framework");
@@ -27,11 +24,7 @@ let admin;
 let alice;      
 let bob;
 
-// Flow Rates
-const flowHigh = "100000";
-const flowMed = "90000";
-const flowLow = "80000";
-
+let tx; 
 
 const errorHandler = (err) => {
   if (err) throw err;
@@ -184,217 +177,132 @@ before(async function () {
     await transferOp2.exec(alice);
 
     console.log("Set Up Complete! - StreamRebounder Contract Address:", streamrebounder.address);
-
-    //// FLOWOPS EXPERIMENTATION
-
-    aliceFlowOps = await getFlowOps(sf, daix, usdcx, streamrebounder, alice);
-    bobFlowOps = await getFlowOps(sf, daix, usdcx, streamrebounder, bob);
-
 });
 
 describe("Stream Rebounder Tests", async function () {
 
-  it("create flow", async function () {
+  it("broad test", async function () {
 
     // Alice starts DAI stream 
-    await(await aliceFlowOps.daix_create_med).exec(alice);
+    const cfOp = sf.cfaV1.createFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+
+    await cfOp.exec(alice);
 
     // Alice starts USDC stream 
-    await(await aliceFlowOps.usdcx_create_med).exec(alice);
+    const cfOpu = sf.cfaV1.createFlow({
+      superToken: usdcx.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
 
-    // Bob starts DAI stream 
-    await(await bobFlowOps.daix_create_med).exec(bob);
-
-    // Bob starts USDC stream 
-    await(await bobFlowOps.usdcx_create_med).exec(bob); 
+    await cfOpu.exec(alice);
     
+    // Alice deletes DAI stream  
+    const dfOp = sf.cfaV1.deleteFlow({
+      superToken: daix.address,
+      sender: alice.address,
+      receiver: streamrebounder.address
+    });
+    await dfOp.exec(alice);
 
-    // Alice's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, alice, streamrebounder, alice);
+    // Alice deletes USDC stream 
+    const dfOpu = sf.cfaV1.deleteFlow({
+      superToken: usdcx.address,
+      sender: alice.address,
+      receiver: streamrebounder.address
+    });
+    await dfOpu.exec(alice);
 
-    // Alice's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, alice, streamrebounder, alice);
+    // Alice creates DAI stream
+    await cfOp.exec(alice);
 
-    // Bob's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, bob, streamrebounder, bob);
+    // Alice starts USDC stream
+    await cfOpu.exec(alice);
 
-    // Bob's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, bob, streamrebounder, bob);
+    // Alice deletes incoming DAI stream (her outgoing DAI stream gets deleted by SR)
+    const df2Ou = sf.cfaV1.deleteFlow({
+      superToken: daix.address,
+      sender: streamrebounder.address,
+      receiver: alice.address
+    });
+    await df2Ou.exec(alice);
+
+    // Verify Alice stream to Rebounder is zero (cancelled by Rebounder)
+    assert(
+      ( await sf.cfaV1.getFlow({
+        superToken:daix.address,
+        sender:alice.address,
+        receiver:streamrebounder.address,
+        providerOrSigner:alice}) ).flowRate == 0,
+      "Alice outbound stream not zero"
+    );
+
+    // Alice deletes outgoing DAI stream (would revert as it doesn't exist)
+    try {
+      await dfOp.exec(alice);
+    } catch {
+      console.log("expected reversion - flow doesn't exist")
+    }
+    
+    // await expect(await dfOp.exec(alice)).to.be.reverted;
+
+    // Alice deletes outgoing USDC streams
+    await dfOpu.exec(alice);
+
+    // Alice creates DAI flow
+    const cf2Op = sf.cfaV1.createFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await cf2Op.exec(alice);
+
+    // Alice creates USDC flow
+    const cf2Ou = sf.cfaV1.createFlow({
+      superToken: usdcx.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await cf2Ou.exec(alice);
+
+    // Alice increases DAI flow
+    const ufOp = sf.cfaV1.updateFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "200000"
+    });
+    await ufOp.exec(alice);
+
+    // Alice increases USDC flow
+    const ufOpu = sf.cfaV1.updateFlow({
+      superToken: usdcx.address,
+      receiver: streamrebounder.address,
+      flowRate: "200000"
+    });
+    await ufOpu.exec(alice);
+
+    // Alice deletes DAI flow
+    await dfOp.exec(alice);
+
+    // Alice deletes USDC flow
+    await dfOpu.exec(alice);
 
   });
-
-  it("update flow - increase", async function () {
-
-    // Alice increase DAIx stream
-    await(await aliceFlowOps.daix_update_high).exec(alice);
-
-    // Alice increase USDCx stream
-    await(await aliceFlowOps.usdcx_update_high).exec(alice);
-
-    // Bob increase DAIx stream
-    await(await bobFlowOps.daix_update_high).exec(bob);
-
-    // Bob increase USDCx stream
-    await(await bobFlowOps.usdcx_update_high).exec(bob);
-
-
-    // Alice's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, alice, streamrebounder, alice);
-
-    // Alice's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, alice, streamrebounder, alice);
-
-    // Bob's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, bob, streamrebounder, bob);
-
-    // Bob's USDCx rebounds properlyj
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, bob, streamrebounder, bob);
-
-  })
-
-  it("update flow - decrease", async function () {
-
-    // Alice decrease DAIx stream
-    await(await aliceFlowOps.daix_update_low).exec(alice);
-
-    // Alice decrease USDCx stream
-    await(await aliceFlowOps.usdcx_update_low).exec(alice);
-
-    // Bob decrease DAIx stream
-    await(await bobFlowOps.daix_update_low).exec(bob);
-
-    // Bob decrease USDCx stream
-    await(await bobFlowOps.usdcx_update_low).exec(bob);
-
-
-    // Alice's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, alice, streamrebounder, alice);
-
-    // Alice's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, alice, streamrebounder, alice);
-
-    // Bob's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, bob, streamrebounder, bob);
-
-    // Bob's USDCx rebounds properlyj
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, bob, streamrebounder, bob);
-
-  })
-
-  it("delete flow - outbound", async function () {
-
-    // Alice delete DAIx stream
-    await(await aliceFlowOps.daix_delete).exec(alice);
-
-    // Alice delete USDCx stream
-    await(await aliceFlowOps.usdcx_delete).exec(alice);
-
-    // Bob delete DAIx stream
-    await(await bobFlowOps.daix_delete).exec(bob);
-
-    // Bob delete USDCx stream
-    await(await bobFlowOps.usdcx_delete).exec(bob);
-
-
-    // Alice's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, alice, streamrebounder, alice);
-
-    // Alice's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, alice, streamrebounder, alice);
-
-    // Bob's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, bob, streamrebounder, bob);
-
-    // Bob's USDCx rebounds properlyj
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, bob, streamrebounder, bob);
-
-  })
-
-  it("delete flow - inbound (rogue beneficiary)", async function () {
-
-    //// restart flows first
-
-    // Alice starts DAI stream 
-    await(await aliceFlowOps.daix_create_med).exec(alice);
-
-    // Alice starts USDC stream 
-    await(await aliceFlowOps.usdcx_create_med).exec(alice);
-
-    // Bob starts DAI stream 
-    await(await bobFlowOps.daix_create_med).exec(bob);
-
-    // Bob starts USDC stream 
-    await(await bobFlowOps.usdcx_create_med).exec(bob); 
-
-    //// delete inbound flows (rogue)
-
-    // Alice delete DAIx stream
-    await(await aliceFlowOps.daix_delete_rogue).exec(alice);
-
-    // Alice delete USDCx stream
-    await(await aliceFlowOps.usdcx_delete_rogue).exec(alice);
-
-    // Bob delete DAIx stream
-    await(await bobFlowOps.daix_delete_rogue).exec(bob);
-
-    // Bob delete USDCx stream
-    await(await bobFlowOps.usdcx_delete_rogue).exec(bob);
-
-
-    // Alice's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, alice, streamrebounder, alice);
-
-    // Alice's USDCx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, alice, streamrebounder, alice);
-
-    // Bob's DAIx rebounds properly
-    await flowIntoIntermediateEqualsFlowOut(sf, daix, bob, streamrebounder, bob);
-
-    // Bob's USDCx rebounds properlyj
-    await flowIntoIntermediateEqualsFlowOut(sf, usdcx, bob, streamrebounder, bob);
-
-  })
-
-  it("locking rebounder with no streams going", async function () {
-
-    // lock rebounder
-    await streamrebounder.connect(admin).setLock(true);
-
-    // attempt opening a stream, expect reversion
-    try {
-      await aliceFlowOps.daix_create_med.exec(alice);
-      throw null;
-    } catch (err) {
-      assert( err != null , "Did not error as expected");
-    }
-
-    // unlock rebounder
-    await streamrebounder.connect(admin).setLock(false);
-
-  });
-
-  it("lock rebounder with streams going", async function () {
-
-    // Alice starts stream
-    await aliceFlowOps.daix_create_med.exec(alice);
-
-    // lock rebounder
-    await streamrebounder.connect(admin).setLock(true);
-
-    // Bob attempts opening a stream, expect reversion
-    try {
-      await bobFlowOps.daix_create_med.exec(bob);
-      throw null;
-    } catch (err) {
-      assert( err != null , "Did not error as expected");
-    }
-
-    // unlock rebounder
-    await streamrebounder.connect(admin).setLock(false);
-
-  })
 
   it("protection tests", async function () {
+
+    // Alice starts a DAI stream
+
+    const aliceDaixFlow1 = sf.cfaV1.createFlow({
+      superToken: daix.address,
+      receiver: streamrebounder.address,
+      flowRate: "100000"
+    });
+    await aliceDaixFlow1.exec(alice);
 
     // Bob starts a USDC stream
 

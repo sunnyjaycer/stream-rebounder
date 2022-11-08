@@ -18,6 +18,8 @@ contract StreamRebounder is Ownable {
 
     mapping(ISuperToken => bool) public acceptedToken;
 
+    mapping(address => int96) public flowRates;
+
     bool public locked;
 
    constructor(
@@ -58,7 +60,7 @@ contract StreamRebounder is Ownable {
         notLocked
         returns (bytes memory newCtx)
     {
-        require(acceptedToken[_superToken], "invalid token");
+        require(acceptedToken[_superToken], "RedirectAll: invalid token");
 
         newCtx = _ctx;
 
@@ -212,6 +214,8 @@ contract StreamRebounder is Ownable {
             if(inFlow != 0) {
                 cfaV1Lib.deleteFlow(streamers[i], address(this), supertoken[i]);
             }
+
+            delete flowRates[streamers[i]];
 
         }
 
