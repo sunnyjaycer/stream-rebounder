@@ -3,7 +3,7 @@ const hre = require("hardhat");
 async function main() {
   
   // Initial Attempt
-  // Rebounder deployed to 0xF26Ce9749f29E61c25d0333bCE2301CB2DFd3a22 on Goerli, Mumbai
+  // Rebounder deployed to 0xF26Ce9749f29E61c25d0333bCE2301CB2DFd3a22 on Goerli, Mumbai, Optimism, Polygon
   // Deployer Address: 0x1006f1a5a511F822047F06F2e78c24244B0d4DB5
 
   const signers = await hre.ethers.getSigners();
@@ -21,8 +21,8 @@ async function main() {
   // We get the contract to deploy
   const Rebounder = await hre.ethers.getContractFactory("StreamRebounder");
   const rebounder = await Rebounder.connect(signers[2]).deploy(
-    MUMBAI_HOST, // host address
-    "" // <REGI KEY>
+    POLYGON_HOST, // host address
+    process.env.SUPER_APP_REGISTRATION_KEY
   );
 
   await rebounder.deployed();
